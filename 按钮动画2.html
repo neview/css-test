@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Android Neon Loader</title>
+    <style>
+      html {
+        font-size: 100%;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #000;
+        height: 100vh;
+        overflow: hidden;
+      }
+      :root {
+        /* Fill data-text */
+      }
+
+      /* █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ */
+
+      .Loader {
+        position: relative;
+        width: 150px;
+        width: 150px;
+        min-width: 110px;
+        overflow: visible;
+        margin: 20px;
+        border-radius: 50%;
+        box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.4),
+          0 0 25px rgba(255, 255, 255, 0.8);
+      }
+
+      .Loader::after {
+        content: attr(data-text);
+        color: #cecece;
+        color: #cecece;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        font-size: calc(70% + 0.1vw);
+        text-transform: uppercase;
+        letter-spacing: 5px;
+      }
+
+      .Loader {
+        /* Keep ratio on resize */
+      }
+
+      .Loader::before {
+        content: "";
+        float: left;
+        padding-top: 100%;
+      }
+
+      .Loader__Circle {
+        display: block;
+        position: absolute;
+        border-radius: 50%;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        opacity: 0.8;
+        mix-blend-mode: screen;
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="1.2" /><feFuncG type="linear" slope="1.2" /><feFuncB type="linear" slope="1.2" /></feComponentTransfer></filter></svg>#filter');
+        -webkit-filter: brightness(120%);
+        filter: brightness(120%);
+        -webkit-animation-name: SpinAround;
+        animation-name: SpinAround;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-duration: 2s;
+        animation-duration: 2s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+        -webkit-animation-timing-function: linear;
+        animation-timing-function: linear;
+      }
+
+      .Loader__Circle:nth-of-type(1) {
+        box-shadow: inset 1px 0 0 1px #2979ff, 4px 0 0 4px #2979ff;
+        box-shadow: inset 1px 0 0 1px #2979ff, 4px 0 0 4px #2979ff;
+        box-shadow: inset 1px 0 0 1px #2979ff, 4px 0 0 3px #2979ff;
+        box-shadow: inset 1px 0 0 1px #2979ff, 4px 0 0 3px #2979ff;
+        box-shadow: inset 1px 0 0 1px #2979ff, 3px 0 0 4px #2979ff;
+        box-shadow: inset 1px 0 0 1px #2979ff, 3px 0 0 4px #2979ff;
+        box-shadow: inset 1px 0 0 1px #2979ff, 3px 0 0 3px #2979ff;
+        box-shadow: inset 1px 0 0 1px #2979ff, 3px 0 0 3px #2979ff;
+        box-shadow: inset 1px 0 0 1px #2979ff, 4px 0 0 4px #2979ff;
+        box-shadow: inset 1px 0 0 1px #2979ff, 4px 0 0 4px #2979ff;
+        box-shadow: inset 1px 0 0 1px #2979ff, 4px 0 0 3px #2979ff;
+        box-shadow: inset 1px 0 0 1px #2979ff, 4px 0 0 3px #2979ff;
+        box-shadow: inset 1px 0 0 1px #2979ff, 3px 0 0 4px #2979ff;
+        box-shadow: inset 1px 0 0 1px #2979ff, 3px 0 0 4px #2979ff;
+        box-shadow: inset 1px 0 0 1px #2979ff, 3px 0 0 3px #2979ff;
+        box-shadow: inset 1px 0 0 1px #2979ff, 3px 0 0 3px #2979ff;
+        animation-direction: reverse;
+        -webkit-transform-origin: 49.6% 49.8%;
+        transform-origin: 49.6% 49.8%;
+      }
+
+      .Loader__Circle:nth-of-type(2) {
+        box-shadow: inset 1px 0 0 1px #ff1744, 4px 0px 0 4px #ff1744;
+        box-shadow: inset 1px 0 0 1px #ff1744, 4px 0px 0 4px #ff1744;
+        box-shadow: inset 1px 0 0 1px #ff1744, 4px 0px 0 3px #ff1744;
+        box-shadow: inset 1px 0 0 1px #ff1744, 4px 0px 0 3px #ff1744;
+        box-shadow: inset 1px 0 0 1px #ff1744, 3px 0px 0 4px #ff1744;
+        box-shadow: inset 1px 0 0 1px #ff1744, 3px 0px 0 4px #ff1744;
+        box-shadow: inset 1px 0 0 1px #ff1744, 3px 0px 0 3px #ff1744;
+        box-shadow: inset 1px 0 0 1px #ff1744, 3px 0px 0 3px #ff1744;
+        box-shadow: inset 1px 0 0 1px #ff1744, 4px 0px 0 4px #ff1744;
+        box-shadow: inset 1px 0 0 1px #ff1744, 4px 0px 0 4px #ff1744;
+        box-shadow: inset 1px 0 0 1px #ff1744, 4px 0px 0 3px #ff1744;
+        box-shadow: inset 1px 0 0 1px #ff1744, 4px 0px 0 3px #ff1744;
+        box-shadow: inset 1px 0 0 1px #ff1744, 3px 0px 0 4px #ff1744;
+        box-shadow: inset 1px 0 0 1px #ff1744, 3px 0px 0 4px #ff1744;
+        box-shadow: inset 1px 0 0 1px #ff1744, 3px 0px 0 3px #ff1744;
+        box-shadow: inset 1px 0 0 1px #ff1744, 3px 0px 0 3px #ff1744;
+        -webkit-transform-origin: 49.5% 49.8%;
+        transform-origin: 49.5% 49.8%;
+      }
+
+      .Loader__Circle:nth-of-type(3) {
+        box-shadow: inset 1px 0 0 1px #ffff8d, 0 4px 0 4px #ffff8d;
+        box-shadow: inset 1px 0 0 1px #ffff8d, 0 4px 0 4px #ffff8d;
+        box-shadow: inset 1px 0 0 1px #ffff8d, 0 4px 0 3px #ffff8d;
+        box-shadow: inset 1px 0 0 1px #ffff8d, 0 4px 0 3px #ffff8d;
+        box-shadow: inset 1px 0 0 1px #ffff8d, 0 3px 0 4px #ffff8d;
+        box-shadow: inset 1px 0 0 1px #ffff8d, 0 3px 0 4px #ffff8d;
+        box-shadow: inset 1px 0 0 1px #ffff8d, 0 3px 0 3px #ffff8d;
+        box-shadow: inset 1px 0 0 1px #ffff8d, 0 3px 0 3px #ffff8d;
+        box-shadow: inset 1px 0 0 1px #ffff8d, 0 4px 0 4px #ffff8d;
+        box-shadow: inset 1px 0 0 1px #ffff8d, 0 4px 0 4px #ffff8d;
+        box-shadow: inset 1px 0 0 1px #ffff8d, 0 4px 0 3px #ffff8d;
+        box-shadow: inset 1px 0 0 1px #ffff8d, 0 4px 0 3px #ffff8d;
+        box-shadow: inset 1px 0 0 1px #ffff8d, 0 3px 0 4px #ffff8d;
+        box-shadow: inset 1px 0 0 1px #ffff8d, 0 3px 0 4px #ffff8d;
+        box-shadow: inset 1px 0 0 1px #ffff8d, 0 3px 0 3px #ffff8d;
+        box-shadow: inset 1px 0 0 1px #ffff8d, 0 3px 0 3px #ffff8d;
+        -webkit-transform-origin: 49.8% 49.8%;
+        transform-origin: 49.8% 49.8%;
+      }
+
+      .Loader__Circle:nth-of-type(4) {
+        box-shadow: inset 1px 0 0 1px #b2ff59, 0 4px 0 4px #b2ff59;
+        box-shadow: inset 1px 0 0 1px #b2ff59, 0 4px 0 4px #b2ff59;
+        box-shadow: inset 1px 0 0 1px #b2ff59, 0 4px 0 3px #b2ff59;
+        box-shadow: inset 1px 0 0 1px #b2ff59, 0 4px 0 3px #b2ff59;
+        box-shadow: inset 1px 0 0 1px #b2ff59, 0 3px 0 4px #b2ff59;
+        box-shadow: inset 1px 0 0 1px #b2ff59, 0 3px 0 4px #b2ff59;
+        box-shadow: inset 1px 0 0 1px #b2ff59, 0 3px 0 3px #b2ff59;
+        box-shadow: inset 1px 0 0 1px #b2ff59, 0 3px 0 3px #b2ff59;
+        box-shadow: inset 1px 0 0 1px #b2ff59, 0 4px 0 4px #b2ff59;
+        box-shadow: inset 1px 0 0 1px #b2ff59, 0 4px 0 4px #b2ff59;
+        box-shadow: inset 1px 0 0 1px #b2ff59, 0 4px 0 3px #b2ff59;
+        box-shadow: inset 1px 0 0 1px #b2ff59, 0 4px 0 3px #b2ff59;
+        box-shadow: inset 1px 0 0 1px #b2ff59, 0 3px 0 4px #b2ff59;
+        box-shadow: inset 1px 0 0 1px #b2ff59, 0 3px 0 4px #b2ff59;
+        box-shadow: inset 1px 0 0 1px #b2ff59, 0 3px 0 3px #b2ff59;
+        box-shadow: inset 1px 0 0 1px #b2ff59, 0 3px 0 3px #b2ff59;
+        -webkit-transform-origin: 49.7% 49.7%;
+        transform-origin: 49.7% 49.7%;
+      }
+
+      @-webkit-keyframes SpinAround {
+        0% {
+          -webkit-transform: rotate(0);
+          transform: rotate(0);
+        }
+
+        100% {
+          -webkit-transform: rotate(-360deg);
+          transform: rotate(-360deg);
+        }
+      }
+
+      @keyframes SpinAround {
+        0% {
+          -webkit-transform: rotate(0);
+          transform: rotate(0);
+        }
+
+        100% {
+          -webkit-transform: rotate(-360deg);
+          transform: rotate(-360deg);
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- partial:index.partial.html -->
+    <div class="Loader" data-text="Loading">
+      <span class="Loader__Circle"></span>
+      <span class="Loader__Circle"></span>
+      <span class="Loader__Circle"></span>
+      <span class="Loader__Circle"></span>
+    </div>
+    <!-- partial -->
+  </body>
+</html>

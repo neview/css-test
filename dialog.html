@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .aa {
+        width: 200px;
+        height: 200px;
+        background: rgba(0, 0, 0, 0.1);
+        margin: 0 auto;
+        animation-fill-mode: both;
+      }
+      @keyframes showAnima {
+        0% {
+          transform: scaleY(0);
+        }
+        100% {
+          transform: scaleY(1);
+          height: 100vh;
+          width: 100vw;
+        }
+      }
+
+      @keyframes hideAnima {
+        0% {
+          transform: scaleY(1);
+        }
+        99% {
+          height: 2px;
+          transform: scaleY(0.2);
+          background-color: #ffffff;
+        }
+        100% {
+          height: 0;
+          transform: scaleY(0);
+        }
+      }
+      @keyframes zoomInLeft {
+        0% {
+          opacity: 0;
+          -webkit-transform: scale3d(0.1, 0.1, 0.1) translate3d(-1000px, 0, 0);
+          -ms-transform: scale3d(0.1, 0.1, 0.1) translate3d(-1000px, 0, 0);
+          transform: scale3d(0.1, 0.1, 0.1) translate3d(-1000px, 0, 0);
+          -webkit-animation-timing-function: cubic-bezier(
+            0.55,
+            0.055,
+            0.675,
+            0.19
+          );
+          animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+        }
+        60% {
+          opacity: 1;
+          -webkit-transform: scale3d(0.475, 0.475, 0.475)
+            translate3d(10px, 0, 0);
+          -ms-transform: scale3d(0.475, 0.475, 0.475) translate3d(10px, 0, 0);
+          transform: scale3d(0.475, 0.475, 0.475) translate3d(10px, 0, 0);
+          -webkit-animation-timing-function: cubic-bezier(
+            0.175,
+            0.885,
+            0.32,
+            1
+          );
+          animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);
+        }
+      }
+      @keyframes zoomOutRight {
+        40% {
+          opacity: 1;
+          -webkit-transform: scale3d(0.475, 0.475, 0.475)
+            translate3d(-42px, 0, 0);
+          -ms-transform: scale3d(0.475, 0.475, 0.475) translate3d(-42px, 0, 0);
+          transform: scale3d(0.475, 0.475, 0.475) translate3d(-42px, 0, 0);
+        }
+        100% {
+          opacity: 0;
+          -webkit-transform: scale(0.1) translate3d(2000px, 0, 0);
+          -ms-transform: scale(0.1) translate3d(2000px, 0, 0);
+          transform: scale(0.1) translate3d(2000px, 0, 0);
+          -webkit-transform-origin: right center;
+          -ms-transform-origin: right center;
+          transform-origin: right center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <dialog open>
+      <p>Greetings, one and all!</p>
+      <form method="dialog">
+        <button>OK</button>
+      </form>
+    </dialog> -->
+    <!-- Simple modal dialog containing a form -->
+
+    <!-- <dialog id="favDialog">
+      <form method="dialog">
+        <p>
+          <label
+            >Favorite animal:
+            <select>
+              <option value="default">Choose…</option>
+              <option>Brine shrimp</option>
+              <option>Red panda</option>
+              <option>Spider monkey</option>
+            </select>
+          </label>
+        </p>
+        <div>
+          <button value="cancel">Cancel</button>
+          <button id="confirmBtn" value="default">Confirm</button>
+        </div>
+      </form>
+    </dialog>
+    <p>
+      <button id="updateDetails">Update details</button>
+    </p>
+    <output></output> -->
+    <div class="aa"></div>
+    <button onclick="showFun()" style="position: fixed; top: 100px; left: 0">
+      show
+    </button>
+    <button onclick="hideFun()" style="position: fixed; top: 100px; left: 50px">
+      hide
+    </button>
+  </body>
+</html>
+<script>
+  let divBox = document.getElementsByClassName("aa")[0];
+  function showFun() {
+    divBox.style.animation = "zoomInLeft 0.8s";
+    divBox.style.opacity = "auto";
+  }
+  function hideFun() {
+    divBox.style.animation = "zoomOutRight 0.8s forwards";
+  }
+</script>
+<script>
+  //   const updateButton = document.getElementById("updateDetails");
+  //   const favDialog = document.getElementById("favDialog");
+  //   const outputBox = document.querySelector("output");
+  //   const selectEl = favDialog.querySelector("select");
+  //   const confirmBtn = favDialog.querySelector("#confirmBtn");
+
+  //   // If a browser doesn't support the dialog, then hide the
+  //   // dialog contents by default.
+  //   if (typeof favDialog.showModal !== "function") {
+  //     favDialog.hidden = true;
+  //     /* a fallback script to allow this dialog/form to function
+  //      for legacy browsers that do not support <dialog>
+  //      could be provided here.
+  //   */
+  //   }
+  //   // "Update details" button opens the <dialog> modally
+  //   updateButton.addEventListener("click", () => {
+  //     if (typeof favDialog.showModal === "function") {
+  //       favDialog.showModal();
+  //     } else {
+  //       outputBox.value =
+  //         "Sorry, the <dialog> API is not supported by this browser.";
+  //     }
+  //   });
+  //   // "Favorite animal" input sets the value of the submit button
+  //   selectEl.addEventListener("change", (e) => {
+  //     confirmBtn.value = selectEl.value;
+  //   });
+  //   // "Confirm" button of form triggers "close" on dialog because of [method="dialog"]
+  //   favDialog.addEventListener("close", () => {
+  //     outputBox.value = `${
+  //       favDialog.returnValue
+  //     } button clicked - ${new Date().toString()}`;
+  //   });
+</script>

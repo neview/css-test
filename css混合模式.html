@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        height: 50vh;
+        background: linear-gradient(45deg, #000 0, #000 50%, #fff 50%);
+        &::before {
+          content: "MANGGUO-GLOBAL";
+          position: absolute;
+          top: 30%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: #fff;
+          mix-blend-mode: difference;
+          animation: move 3s infinite linear alternate;
+          font-size: 30px;
+        }
+      }
+      @keyframes move {
+        0% {
+          transform: translate(-30%, -50%);
+        }
+        100% {
+          transform: translate(-70%, -50%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div></div>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+*{
+    margin: 0 auto;
+    padding: 0 auto;
+}
+body{
+    background-color: black;
+}
+p {
+    // writing-mode: vertical-lr;
+    width: 12px;
+    font-size: 18px;
+    word-break: break-all;
+    color: #ffffff;
+    float: left;
+    margin-left: 10px;
+}
+$str: 'ぁぃぅぇぉかきくけこんさしすせそた◁▣▤▥▦▧♂♀♥☻►◄▧▨♦ちつってとゐなにぬねのはひふへほゑまみむめもゃゅょゎをァィゥヴェォカヵキクケヶコサシスセソタチツッテトヰンナニヌネノハヒフヘホヱマミムメモャュョヮヲㄅㄉㄓㄚㄞㄢㄦㄆㄊㄍㄐㄔㄗㄧㄛㄟㄣㄇㄋㄎㄑㄕㄘㄨㄜㄠㄤㄈㄏㄒㄖㄙㄩㄝㄡㄥabcdefghigklmnopqrstuvwxyz123456789%@#$<>^&*_+';
+$length: str-length($str);
+
+// $str 定义了一串随机字符串，$length 表示字符串的长度
+// randomChar() 中利用了 SASS 的 random() 方法，每次随机选取一个 0 - $length 的整形数，记为 $r，再利用 SASS 的 str-slice 方法，每次从 $str 中选取一个下标为 $r 的随机字符
+// randomChars() 就是循环调用 randomChar() 方法，从 $str 中随机生成一串字符串，长度为传进去的参数 $number
+
+@function randomChar() {
+    $r: random($length);
+    @return str-slice($str, $r, $r);
+}
+
+@function randomChars($number) {
+    $value: '';
+
+    @if $number > 0 {
+        @for $i from 1 through $number {
+            $value: $value + randomChar();
+        }
+    }
+    @return $value;
+}
+
+p:nth-child(1)::before {
+    content: randomChars(25);
+}
+p:nth-child(2)::before {
+    content: randomChars(25);
+}
+p:nth-child(3)::before {
+    content: randomChars(25);
+}

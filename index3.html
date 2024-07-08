@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f9f7e8;
+        overflow: hidden;
+        user-select: none;
+      }
+      .circle {
+        width: 50vh;
+        height: 50vh;
+        border: 1px solid red;
+        border-radius: 50%;
+        color: #62bfad;
+        font-size: 6vh;
+        text-transform: uppercase;
+        text-align: center;
+        animation: spin 20s linear infinite;
+      }
+      .circle span {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(360deg);
+        }
+        100% {
+          transform: rotate(0);
+        }
+      }
+      .sort_text {
+        font-size: 12px;
+        transform: rotate(-45deg);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div class="circle">1231231231231</div> -->
+    <div class="sort_text">哈哈哈</div>
+  </body>
+</html>
+<script>
+  const circle = document.querySelector(".circle");
+  const text = circle.innerText;
+  circle.innerText = "";
+
+  for (let i = 0; i < text.length; i++) {
+    let letter = text[i];
+    let span = document.createElement("span");
+    span.innerText = letter;
+    let r = (360 / text.length) * i;
+    span.style.transform = "rotate(" + r + "deg)";
+    circle.appendChild(span);
+  }
+</script>

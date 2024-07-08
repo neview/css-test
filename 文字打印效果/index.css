@@ -1,0 +1,32 @@
+@charset "UTF-8";
+* {
+  margin: 0 auto;
+  padding: 0 auto;
+}
+
+body {
+  background-color: black;
+}
+
+p {
+  width: 12px;
+  font-size: 18px;
+  word-break: break-all;
+  color: #ffffff;
+  float: left;
+  margin-left: 10px;
+}
+
+p:nth-child(1)::before {
+  content: "ㄢㄟハㄒぇっソㄩミィ▧▧1ヰナpㄒ1frたwㄥzそ";
+}
+
+p:nth-child(2)::before {
+  content: "ゃォ◄けㄑはゑ▤yャㄇソb4みノ$ヘツヰ◁*@ㄡㄥ";
+}
+
+p:nth-child(3)::before {
+  content: "のァ5キゅ2ㄞふホフ▥pヵㄋク♥yㄋォンㄆませぃ$";
+}
+
+/*# sourceMappingURL=index.css.map */

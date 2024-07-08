@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        width: 300px;
+        height: 300px;
+        outline: 1px solid #000;
+        margin: 0 auto;
+        position: relative;
+        margin-top: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        /* animation: rotate linear infinite 20s; */
+      }
+      .container .item {
+        width: 80px;
+        height: 80px;
+        line-height: 80rpx;
+        text-align: center;
+        position: absolute;
+      }
+      .container p {
+        font-size: 30px;
+        border: 1px red solid;
+        /* animation: rotate 20s linear infinite reverse; */
+      }
+      @keyframes rotate {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="item">
+        <p>1</p>
+      </div>
+      <div class="item">
+        <p>2</p>
+      </div>
+      <div class="item">
+        <p>3</p>
+      </div>
+      <div class="item">
+        <p>4</p>
+      </div>
+      <div class="item">
+        <p>5</p>
+      </div>
+    </div>
+
+    <script>
+      const items = document.querySelectorAll(".container .item");
+      const r = document.querySelector(".container").clientWidth / 2;
+      const count = items.length;
+      const pieceDeg = 360 / count;
+      for (let i = 0; i < count; i++) {
+        let t = i * pieceDeg;
+        t = (Math.PI / 180) * t;
+        const x = Math.sin(t) * r,
+          y = -Math.cos(t) * r;
+        items[i].style.transform = `translate(${x}px, ${y}px`;
+      }
+    </script>
+  </body>
+</html>

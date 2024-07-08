@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .gird_box {
+        width: 500px;
+        display: grid;
+        grid-auto-flow: row;
+        grid-template-columns: auto;
+        justify-content: center;
+        grid-gap: 5px;
+        grid-auto-rows: 50px;
+        background-color: pink;
+        z-index: 99;
+      }
+      .gird_box div:nth-child(1) {
+        width: 200px;
+        background-color: aqua;
+        z-index: 99999;
+      }
+      .gird_box div:nth-child(2) {
+        background-color: burlywood;
+        z-index: 99999;
+      }
+      .gird_box div:nth-child(3) {
+        background-color: antiquewhite;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="gird_box">
+      <div>111</div>
+      <div>222</div>
+      <!-- <div></div> -->
+    </div>
+  </body>
+</html>

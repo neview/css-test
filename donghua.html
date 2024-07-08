@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-color: rgb(204, 204, 204);
+      }
+      .box {
+        width: 100vw;
+        height: 100vh;
+        background-color: beige;
+        animation-fill-mode: both;
+      }
+      .open {
+        position: fixed;
+        bottom: 30px;
+        left: 20px;
+        cursor: pointer;
+      }
+      .close {
+        position: fixed;
+        bottom: 30px;
+        left: 80px;
+        cursor: pointer;
+      }
+      @keyframes showBox {
+        0% {
+          height: 0;
+          transform: translateY(100vh) scale(0);
+        }
+        100% {
+          transform: translateY(0) scale(1);
+          height: 100vh;
+        }
+      }
+      @keyframes closeBox {
+        0% {
+          transform: translateY(0) scale(1);
+          height: 100vh;
+        }
+        100% {
+          transform: translateY(100vh) scale(0);
+          height: 0;
+        }
+      }
+
+      @keyframes showBox2 {
+        0% {
+        }
+        20% {
+        }
+        100% {
+        }
+      }
+
+      @keyframes closeBox2 {
+        20% {
+          transform: translateZ(20px) scale(0.2);
+        }
+        100% {
+          transform: translate3d(0, 100%, 20px) scale(0.2);
+          opacity: 0;
+        }
+      }
+      textarea:-moz-placeholder,
+      input:-moz-placeholder {
+        width: 3rpx !important;
+        height: 50rpx !important;
+        font-weight: 800 !important;
+        color: red;
+      }
+
+      textarea::-moz-placeholder,
+      input::-moz-placeholder {
+        width: 3rpx !important;
+        height: 50rpx !important;
+        font-weight: 800 !important;
+      }
+
+      textarea:-ms-input-placeholder,
+      input:-ms-input-placeholder {
+        width: 3rpx !important;
+        height: 50rpx !important;
+        font-weight: 800 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div class="box"></div>
+    <div class="open" onclick="openBut()">打开</div>
+    <div class="close" onclick="closeBut()">关闭</div> -->
+    <textarea
+      name=""
+      id=""
+      cols="30"
+      rows="10"
+      style="margin-left: 50px; font-size: 20px"
+    ></textarea>
+  </body>
+</html>
+<script>
+  let box = document.querySelector(".box");
+  function openBut() {
+    box.style.animation = "showBox 0.5s forwards";
+  }
+  function closeBut() {
+    // box.style.animation = "closeBox 0.5s forwards";
+    box.style.animation = "closeBox2 1s forwards";
+  }
+</script>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: rgb(31, 30, 30);
+      }
+      .outer {
+        width: 400px;
+        height: 200px;
+        margin: 100px auto;
+        padding: 1px;
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+      }
+
+      .inner {
+        background: rgb(99, 99, 99, 0.25);
+        backdrop-filter: blur(30px);
+        -webkit-backdrop-filter: blur(30px);
+        width: 399px;
+        height: 199px;
+        border-radius: 20px;
+        z-index: 999;
+        position: absolute;
+        left: 1;
+        top: 1;
+      }
+      .moving-element {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 80px;
+        height: 80px;
+        background: #fff;
+        animation: moveAround 8s linear infinite;
+        border-radius: 40px;
+        transform: translate(-40px, -40px);
+      }
+      /* 从 (360, 0) 到 (400, 40) = √((400-360)² + (40-0)²) = √(1600 + 1600) = √3200 ≈ 56.57px */
+
+      @keyframes moveAround {
+        0% {
+          left: 40px;
+          top: 0px;
+        }
+        28.93% {
+          left: 360px;
+          top: 0px;
+        }
+        33.99% {
+          left: 400px;
+          top: 40px;
+        }
+        44.82% {
+          left: 400px;
+          top: 160px;
+        }
+        49.88% {
+          left: 360px;
+          top: 200px;
+        }
+        78.81% {
+          left: 40px;
+          top: 200px;
+        }
+        83.87% {
+          left: 0px;
+          top: 160px;
+        }
+        94.70% {
+          left: 0px;
+          top: 40px;
+        }
+        100% {
+          left: 40px;
+          top: 0px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      <div class="moving-element"></div>
+      <div class="inner"></div>
+    </div>
+  </body>
+</html>

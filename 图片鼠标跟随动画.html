@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --x: 0;
+        --y: 0;
+        --pic: url("https://oss.aiyuzhou8.com/2023/05/08-.jpg");
+      }
+      body {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        cursor: pointer;
+        background: #001;
+      }
+
+      #g-container {
+        position: relative;
+        margin: auto;
+        width: 350px;
+        height: 500px;
+        border-radius: 30px;
+        transition: all 0.1s;
+        z-index: 3;
+
+        &::after {
+          content: "";
+          position: absolute;
+          inset: 50px;
+          background: var(--pic);
+          background-size: cover;
+          background-position: center;
+          border-radius: 30px;
+          z-index: 10;
+        }
+      }
+
+      #g-filter {
+        position: absolute;
+        inset: 2px;
+        border-radius: 30px;
+        z-index: 5;
+        overflow: hidden;
+
+        &::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: var(--pic);
+          background-size: cover;
+          filter: blur(20px);
+        }
+      }
+
+      #g-img {
+        position: absolute;
+        /* // visibility: hidden; */
+        filter: brightness(1.5);
+        inset: 0;
+        z-index: 1;
+        mask: radial-gradient(
+          circle at var(--x) var(--y),
+          #000,
+          #000,
+          transparent,
+          transparent,
+          transparent
+        );
+
+        &::before {
+          content: "";
+          position: absolute;
+          inset: 2px;
+          border-radius: 30px;
+          background: conic-gradient(
+            #03a9f4,
+            #e91e63,
+            #9c27b0,
+            #ff5722,
+            #03a9f4
+          );
+        }
+        &::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          border-radius: 30px;
+          background: conic-gradient(
+            #03a9f4,
+            #e91e63,
+            #9c27b0,
+            #ff5722,
+            #03a9f4
+          );
+        }
+      }
+      .aa {
+        width: 200px;
+        height: 300px;
+        margin: 0 auto;
+        background-image: url(https://oss.aiyuzhou8.com/2023/05/08-.jpg);
+        background-size: 100% 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div id="g-container">
+      <div id="g-filter"></div>
+      <div id="g-img"></div>
+    </div> -->
+    <div class="aa" id="ceshi"></div>
+  </body>
+</html>
+<!-- <script>
+  const container = document.getElementById("g-container");
+  const img = document.getElementById("g-img");
+
+  container.addEventListener("mousemove", (event) => {
+    img.style.visibility = "visible";
+
+    const target = event.target;
+    const rect = target.getBoundingClientRect();
+
+    var offsetX = event.clientX - rect.left;
+    var offsetY = event.clientY - rect.top;
+
+    var percentX = (
+      Math.min(Math.max(offsetX / rect.width, 0), 1) * 100
+    ).toFixed(2);
+    var percentY = (
+      Math.min(Math.max(offsetY / rect.height, 0), 1) * 100
+    ).toFixed(2);
+
+    container.setAttribute("style", `--x: ${percentX}%;--y: ${percentY}%`);
+  });
+
+  container.addEventListener("mouseout", () => {
+    img.style.visibility = "hidden";
+  });
+</script> -->
+
+<script>
+  const container = document.getElementById("ceshi");
+  container.addEventListener("mousemove", (event) => {
+    const target = event.target;
+    const rect = target.getBoundingClientRect();
+
+    var offsetX = event.clientX - rect.left;
+    var offsetY = event.clientY - rect.top;
+
+    // console.log("offsetX", offsetX);
+    // console.log("offsetY", offsetY);
+    // console.log(
+    //   "元素的宽：",
+    //   event.target.offsetWidth,
+    //   "元素的高：",
+    //   event.target.offsetHeight
+    // );
+  });
+</script>

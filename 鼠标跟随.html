@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- <style>
+      body {
+        background-color: rgb(73, 73, 73);
+        cursor: none;
+        height: 100%;
+      }
+      .lean {
+        width: 200px;
+        height: 200px;
+        background-color: #ffffff;
+        margin: 100px auto;
+        /* cursor: auto; */
+        /* cursor: pointer; */
+        /* cursor: zoom-out; */
+        /* 使用图片 */
+        /* cursor: url(hand.cur); */
+        /* 使用图片，并且设置 fallback 兜底 */
+        /* cursor: url(./icon_coupon.png), pointer; */
+        /* cursor: none; */
+      }
+      #g-pointer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 10px;
+        height: 10px;
+        background: #000;
+        border-radius: 50%;
+      }
+    </style> -->
+    <style>
+      body {
+        cursor: none;
+        background-color: #fff;
+      }
+      #g-pointer-1,
+      #g-pointer-2 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 12px;
+        height: 12px;
+        background: #999;
+        border-radius: 50%;
+        background-color: #fff;
+        mix-blend-mode: exclusion;
+        z-index: 1;
+      }
+      #g-pointer-2 {
+        width: 42px;
+        height: 42px;
+        background: #222;
+        transition: 0.2s ease-out;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="lean">MANGGUO-GOLBAL</div>
+    <div id="g-pointer-1"></div>
+    <div id="g-pointer-2"></div>
+  </body>
+</html>
+<!-- <script>
+  const element = document.getElementById("g-pointer");
+  const body = document.querySelector("body");
+
+  function setPosition(x, y) {
+    element.style.transform = `translate(${x}px, ${y}px)`;
+  }
+
+  body.addEventListener("mousemove", (e) => {
+    window.requestAnimationFrame(function () {
+      setPosition(e.clientX - 5, e.clientY - 5);
+    });
+  });
+</script> -->
+<script>
+  const body = document.querySelector("body");
+  const element = document.getElementById("g-pointer-1");
+  const element2 = document.getElementById("g-pointer-2");
+  const halfAlementWidth = element.offsetWidth / 2;
+  const halfAlementWidth2 = element2.offsetWidth / 2;
+
+  function setPosition(x, y) {
+    element.style.transform = `translate(${x - halfAlementWidth}px, ${
+      y - halfAlementWidth
+    }px)`;
+    element2.style.transform = `translate(${x - halfAlementWidth2}px, ${
+      y - halfAlementWidth2
+    }px)`;
+  }
+
+  body.addEventListener("mousemove", (e) => {
+    window.requestAnimationFrame(function () {
+      setPosition(e.clientX, e.clientY);
+    });
+  });
+</script>

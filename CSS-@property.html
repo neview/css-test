@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+      }
+      body {
+        background-image: radial-gradient(
+            circle at var(--perE) 7%,
+            rgba(40, 40, 40, 0.04) 0%,
+            rgba(40, 40, 40, 0.04) 50%,
+            rgba(200, 200, 200, 0.04) 50%,
+            rgba(200, 200, 200, 0.04) 100%
+          ),
+          radial-gradient(
+            circle at var(--perC) var(--perD),
+            rgba(99, 99, 99, 0.04) 0%,
+            rgba(99, 99, 99, 0.04) 50%,
+            rgba(45, 45, 45, 0.04) 50%,
+            rgba(45, 45, 45, 0.04) 100%
+          ),
+          radial-gradient(
+            circle at var(--perA) var(--perB),
+            rgba(243, 243, 243, 0.04) 0%,
+            rgba(243, 243, 243, 0.04) 50%,
+            rgba(37, 37, 37, 0.04) 50%,
+            rgba(37, 37, 37, 0.04) 100%
+          ),
+          linear-gradient(var(--angle), rgb(34, 222, 237), rgb(135, 89, 215));
+        animation: move 30s infinite alternate linear;
+      }
+      @keyframes move {
+        100% {
+          --perA: 85%;
+          --perB: 49%;
+          --perC: 45%;
+          --perD: 39%;
+          --perE: 70%;
+          --angle: 360deg;
+        }
+      }
+
+      @property --perA {
+        syntax: "<percentage>";
+        inherits: false;
+        initial-value: 75%;
+      }
+
+      @property --perB {
+        syntax: "<percentage>";
+        inherits: false;
+        initial-value: 99%;
+      }
+
+      @property --perC {
+        syntax: "<percentage>";
+        inherits: false;
+        initial-value: 15%;
+      }
+
+      @property --perD {
+        syntax: "<percentage>";
+        inherits: false;
+        initial-value: 16%;
+      }
+
+      @property --perE {
+        syntax: "<percentage>";
+        inherits: false;
+        initial-value: 86%;
+      }
+
+      @property --angle {
+        syntax: "<angle>";
+        inherits: false;
+        initial-value: 0deg;
+      }
+      /* hover 动画------------------------- */
+      /* :root {
+        --whiteColor: #fff;
+      } */
+
+      /**
+       * 定义一个自定义属性的样式规则。
+       * 
+       * 这里使用CSS变量(@property)来定义一个名为--property-name的变量，
+       * 用于后续在CSS中使用，提供了一种更灵活的样式配置方式。
+       * 
+       * @property --property-name { 定义的自定义属性名称 }
+       * syntax: "<color>"; 表示该属性的语法类型是颜色值。
+       * inherits: false; 指定该属性不继承自父元素。
+       * initial-value: #fff; 设置该属性的初始默认值为白色。
+       */
+      /* @property --property-name {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #fff;
+      }
+      p {
+        color: var(--property-name);
+      } */
+
+      /* :root {
+        --colorA: #fff;
+        --colorB: #000;
+      } */
+      /* div {
+        width: 100px;
+        height: 100px;
+        background: linear-gradient(45deg, var(--colorA), var(--colorB));
+        margin: 0 auto;
+        cursor: pointer;
+
+        &:hover {
+          --colorA: yellowgreen;
+          --colorB: deeppink;
+        }
+      } */
+      @property --houdini-colorA {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #fff;
+      }
+
+      @property --houdini-colorB {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #000;
+      }
+
+      .property {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+        cursor: pointer;
+        background: linear-gradient(
+          45deg,
+          var(--houdini-colorA),
+          var(--houdini-colorB)
+        );
+        transition: 1s --houdini-colorA, 1s --houdini-colorB;
+
+        &:hover {
+          --houdini-colorA: yellowgreen;
+          --houdini-colorB: deeppink;
+        }
+      }
+      /* 渐变背景 --------------------------- */
+      @property --colorA {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: fuchsia;
+      }
+
+      @property --colorC {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #f79188;
+      }
+
+      @property --colorF {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: red;
+      }
+
+      .auto-animation {
+        width: 100px;
+        height: 100px;
+        background: linear-gradient(
+          45deg,
+          var(--colorA),
+          var(--colorC),
+          var(--colorF)
+        );
+        animation: change 10s infinite linear;
+      }
+      @keyframes change {
+        20% {
+          --colorA: red;
+          --colorC: #a93ee0;
+          --colorF: fuchsia;
+        }
+        40% {
+          --colorA: #ff3c41;
+          --colorC: #e228a0;
+          --colorF: #2e4c96;
+        }
+        60% {
+          --colorA: orange;
+          --colorC: green;
+          --colorF: teal;
+        }
+        80% {
+          --colorA: #ae63e4;
+          --colorC: #0ebeff;
+          --colorF: #efc371;
+        }
+      }
+
+      /* 饼图 ---------------------------- */
+      .pie-chart {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: conic-gradient(
+          yellowgreen,
+          yellowgreen var(--per),
+          transparent var(--per),
+          transparent 100%
+        );
+        transition: --per 300ms linear;
+        cursor: pointer;
+
+        &:hover {
+          --per: 60%;
+        }
+      }
+      @property --per {
+        syntax: "<percentage>";
+        inherits: false;
+        initial-value: 25%;
+      }
+      /* 下划线动画 */
+      /* .text {
+        font-size: 20px;
+        text-underline-offset: 1px;
+        text-decoration-line: underline;
+        text-decoration-color: #000;
+        transition: all 0.3s;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration-color: orange;
+          text-underline-offset: 10px;
+          color: orange;
+        }
+      } */
+      /* 使用 @property */
+      .text {
+        font-size: 20px;
+        text-underline-offset: var(--offset, 1px);
+        text-decoration-line: underline;
+        text-decoration-color: #000;
+        transition: --offset 400ms, text-decoration-color 400ms;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration-color: orange;
+          --offset: 10px;
+          color: orange;
+        }
+      }
+      @property --offset {
+        syntax: "<length>";
+        inherits: false;
+        initial-value: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="property"></div>
+    <div class="auto-animation"></div>
+    <div class="pie-chart"></div>
+    <p class="text">how are you</p>
+  </body>
+</html>

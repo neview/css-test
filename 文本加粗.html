@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* p {
+              font-size: 48px;
+              letter-spacing: 6px;
+            }
+            p:nth-child(2) {
+              font-weight: bold;
+            }
+            p:nth-child(3) {
+              -webkit-text-stroke: 3px red;
+            }
+            p:nth-child(4) {
+              -webkit-text-stroke: 3px #000;
+            } */
+      /* ---------- */
+      /* ul {
+              display: flex;
+              flex-wrap: nowrap;
+            }
+            li {
+              position: relative;
+              font-size: 64px;
+              letter-spacing: 10px;
+              font-weight: bold;
+              -webkit-text-stroke: 3px #000;
+              list-style: none;
+
+              &::before {
+                content: attr(data-text);
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                color: red;
+                -webkit-text-stroke: 3px #f00;
+                z-index: -1;
+                transform: scale(1.15);
+              }
+            } */
+      /* ---------- */
+      /* p {
+        font-size: 48px;
+        letter-spacing: 6px;
+        font-weight: bold;
+        -webkit-text-stroke: 1px #000;
+        text-shadow: 0 0 2px red, 0 0 2px red, 0 0 2px red, 0 0 2px red,
+          0 0 2px red, 0 0 2px red, 0 0 2px red, 0 0 2px red, 0 0 2px red,
+          0 0 2px red;
+      } */
+      /* ---------- */
+      /* p {
+        font-size: 48px;
+        letter-spacing: 10px;
+        font-weight: bold;
+        -webkit-text-stroke: 1px #000;
+        filter: drop-shadow(0 0 0.25px red) drop-shadow(0 0 0.25px red)
+          drop-shadow(0 0 0.25px red) drop-shadow(0 0 0.25px red)
+          drop-shadow(0 0 0.25px red) drop-shadow(0 0 0.25px red)
+          drop-shadow(0 0 0.25px red) drop-shadow(0 0 0.25px red)
+          drop-shadow(0 0 0.25px red) drop-shadow(0 0 0.25px red)
+          drop-shadow(0 0 0.25px red);
+      } */
+      /* ---------- */
+      p {
+        font-size: 64px;
+        letter-spacing: 6px;
+        font-weight: bold;
+        -webkit-text-stroke: 2px #000;
+        filter: url(#dilate);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <p>文字加粗</p>
+    <p>文字加粗</p>
+    <p>文字加粗</p>
+    <p>文字加粗</p>
+    <p>----------------</p>
+    <ul>
+      <li data-text="文">文</li>
+      <li data-text="字">字</li>
+      <li data-text="加">加</li>
+      <li data-text="粗">粗</li>
+    </ul>
+    <p>----------------</p> -->
+    <!-- <p>文字加粗</p> -->
+    <!-- <p>----------------</p> -->
+    <!-- <p>文字加粗</p> -->
+    <p>文字加粗CSS</p>
+
+    <svg width="0" height="0">
+      <filter id="dilate">
+        <feMorphology
+          in="SourceAlpha"
+          result="DILATED"
+          operator="dilate"
+          radius="2"
+        ></feMorphology>
+        <feFlood flood-color="red" flood-opacity="1" result="flood"></feFlood>
+        <feComposite
+          in="flood"
+          in2="DILATED"
+          operator="in"
+          result="OUTLINE"
+        ></feComposite>
+
+        <feMerge>
+          <feMergeNode in="OUTLINE" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+    </svg>
+  </body>
+</html>

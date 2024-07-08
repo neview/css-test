@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: #616060;
+      }
+      /* .border-image-clip-path {
+              position: relative;
+              width: 200px;
+              height: 100px;
+              border: 1px solid;
+              border-image: linear-gradient(45deg, gold, deeppink) 1;
+              clip-path: inset(0 round 10px);
+            } */
+      .fade {
+        position: relative;
+        width: 140px;
+        height: 80px;
+        border-radius: 100px;
+        background: con;
+        background: conic-gradient(#ff00fa, #fe3, #0f3, #ff00fa);
+      }
+      .original {
+        width: 200px;
+        height: 200px;
+        margin-top: 20px;
+        background: #000;
+        /* mask: radial-gradient(
+          circle at 0 0,
+          #000,
+          #000 200px,
+          transparent 200px
+        ); */
+        mask: radial-gradient(
+            circle at 100% 0,
+            #000,
+            #000 200px,
+            transparent 200px
+          ),
+          radial-gradient(circle at 0 0, #000, #000 200px, transparent 200px);
+        -webkit-mask-composite: source-in;
+        /*-webkit-mask-composite: clear; 清除，不显示任何遮罩*/
+        /*-webkit-mask-composite: copy; 只显示上方遮罩，不显示下方遮罩*/
+        /*-webkit-mask-composite: source-over;
+        /*-webkit-mask-composite: source-in; /*只显示重合的地方*/
+        /*-webkit-mask-composite: source-out; /*只显示上方遮罩，重合的地方不显示*/
+        /* -webkit-mask-composite: source-atop;
+        /*-webkit-mask-composite: destination-over;
+        /*-webkit-mask-composite: destination-in; /*只显示重合的地方*/
+        /* -webkit-mask-composite: destination-out; /*只显示下方遮罩，重合的地方不显示*/
+        /* -webkit-mask-composite: destination-atop;
+       /* -webkit-mask-composite: xor; /* 只显示不重合的地方 */
+      }
+      .aa2 {
+        width: 140px;
+        height: 80px;
+        border-radius: 100px;
+        border: 1px dashed #000;
+        background: conic-gradient(#ff00fa, #fe3, #0f3, #ff00fa);
+        background-clip: content-box;
+        padding: 10px;
+      }
+      .aa3 {
+        width: 140px;
+        height: 80px;
+        border-radius: 100px;
+        background: conic-gradient(#ff00fa, #fe3, #0f3, #ff00fa);
+        padding: 1px;
+        -webkit-mask: linear-gradient(#fff 0 100%) content-box,
+          linear-gradient(#fff 0 100%);
+        -webkit-mask-composite: xor;
+        margin-top: 20px;
+      }
+      .aa4 {
+        width: 140px;
+        height: 80px;
+        margin-top: 20px;
+        border-radius: 100px;
+        background-color: pink;
+        /* background: conic-gradient(#ff00fa, #fe3, #0f3, #ff00fa); */
+        -webkit-mask: linear-gradient(#ffffff 0 100%) content-box,
+          linear-gradient(#ffffff 0 100%);
+        -webkit-mask-composite: xor;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div class="border-image-clip-path"></div> -->
+    <div class="fade"></div>
+    <div class="original"></div>
+    <div class="aa2"></div>
+    <div class="aa3"></div>
+    <div class="aa4"></div>
+  </body>
+</html>

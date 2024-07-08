@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button>切换</button>
+    <button onclick="register()">注册</button>
+    <button onclick="sendCode()">发送验证码</button>
+  </body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  function sendCode() {
+    axios
+      .get(
+        "http://39.100.77.85:8888/user/register-captcha?address=2127763459@qq.com"
+      )
+      .then((res) => {
+        console.log("res", res.data);
+      });
+  }
+  function register() {
+    axios
+      .post("http://39.100.77.85:8888/user/register", {
+        username: "李四",
+        nickName: "lisi",
+        password: "123456",
+        email: "2127763459@qq.com",
+        captcha: "290837",
+      })
+      .then((res) => {
+        console.log("res", res.data);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  }
+</script>

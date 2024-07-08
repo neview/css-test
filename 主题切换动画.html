@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      html {
+        background-color: #fff;
+      }
+
+      button {
+        padding: 5px 16px;
+        margin-top: 20px;
+        background-color: transparent;
+        border-radius: 8px;
+        line-height: 1.4;
+        box-shadow: 0 2px #00000004;
+        cursor: pointer;
+        transition: 0.3s;
+        transform: scale(1);
+        border-color: transparent;
+        background-color: royalblue;
+        color: #fff;
+        text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+        box-shadow: 0 2px #0000000b;
+        user-select: none;
+      }
+
+      button:hover {
+        filter: brightness(1.1);
+      }
+
+      .dark {
+        background-color: #111;
+      }
+
+      .list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .item {
+        width: 200px;
+        height: 150px;
+        background-color: royalblue;
+        border-radius: 10px;
+      }
+
+      ::view-transition-old(*) {
+        animation: none;
+      }
+
+      ::view-transition-new(*) {
+        animation: clip 0.5s ease-in-out;
+      }
+
+      @keyframes clip {
+        from {
+          clip-path: circle(0% at var(--x) var(--y));
+        }
+
+        to {
+          clip-path: circle(100% at var(--x) var(--y));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button id="aa">click</button>
+  </body>
+</html>
+<script>
+  let btn = document.getElementById("aa");
+  btn.addEventListener("click", function (ev) {
+    document.documentElement.style.setProperty("--x", ev.clientX + "px");
+    document.documentElement.style.setProperty("--y", ev.clientY + "px");
+
+    if (document.startViewTransition) {
+      document.startViewTransition(() => {
+        document.documentElement.classList.toggle("dark");
+      });
+    } else {
+      document.documentElement.classList.toggle("dark");
+    }
+  });
+</script>

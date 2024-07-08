@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- <style>
+      .box {
+        height: 20px;
+        width: 20px;
+      }
+      .green {
+        background-color: green;
+        margin-top: 10px;
+      }
+      .purple {
+        background-color: purple;
+        margin-top: 10px;
+      }
+      .blue {
+        background-color: blue;
+        margin-top: 10px;
+      }
+    </style> -->
+    <style>
+      .content {
+        font-size: 5rem;
+        position: relative;
+        color: white;
+      }
+
+      .char {
+        display: inline-block;
+        margin-right: 6px;
+        opacity: 0.3;
+        transform: translateY(-150px);
+        transition: transform 0.3s ease-in-out;
+      }
+    </style>
+  </head>
+  <!-- <body>
+    <div class="box green"></div>
+    <div class="box purple"></div>
+    <div class="box blue"></div>
+    <div onclick="playAnime()">开始</div>
+    <div onclick="pauseAnime()">暂停</div>
+    <div onclick="reverseAnime()">回放</div>
+    <div class="b">1</div>
+  </body> -->
+  <body>
+    <div class="content">
+      <div class="char">a</div>
+      <div class="char">b</div>
+      <div class="char">c</div>
+      <div class="char">d</div>
+      <div class="char">e</div>
+      <div class="char">f</div>
+      <div class="char">g</div>
+      <div class="char">h</div>
+      <div class="char">i</div>
+      <div class="char">j</div>
+    </div>
+  </body>
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+<!-- <script>
+  // gsap.to(".green", { rotation: 360, x: 300, duration: 3 });
+  // gsap.from(".purple", { rotation: 360, x: 300, duration: 3 });
+  // 先定义一条时间线
+  let tl = gsap.timeline({ duration: 1, delay: 2, paused: true });
+
+  tl.to(".blue", {
+    rotation: 360,
+    x: 300,
+    duration: 3,
+    // repeat: -1, // · 重复播放 -1 无限次
+    // yoyo: true, // 是否反向播放
+  }).to(".blue", {
+    rotation: 360,
+    y: 300,
+  });
+  function playAnime() {
+    console.log("动画开始");
+    tl.play();
+  }
+  function pauseAnime() {
+    console.log("动画暂停");
+    tl.pause();
+  }
+  function reverseAnime() {
+    console.log("动画回放");
+    tl.reverse();
+  }
+</script> -->
+<!-- <script>
+  gsap.to(".b", {
+  x: 400,
+  rotation: 360,
+  scrollTrigger: { 
+    trigger: ".b",  //触发元素
+    start: "top center",  //开始动画的时机
+    end: "top 100px", // 截止动画的时机
+    scrub: true,  // 是否使用滚动以及回滚会回放动画
+    markers: true, // 开启标注功能（更好看滚动开始以及截止的地方）
+  }
+});
+</script> -->
+<script></script>

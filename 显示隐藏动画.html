@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>文档</title>
+    <style>
+      .aa {
+        width: 100px;
+        height: 100px;
+        background-color: rgb(206, 206, 206);
+        margin: 0 auto;
+      }
+      /* .show-cart {
+        animation: showCart 1s forwards;
+      }
+      .hide-cart {
+        animation: hideCart 1s forwards;
+      } */
+      @keyframes showCart {
+        0% {
+          transform: translateY(-1000px);
+          /* transform: scale(0.2) translateY(-100px); */
+        }
+        100% {
+          transform: translateY(0);
+          /* transform: scale(1) translateY(100px); */
+        }
+      }
+
+      @keyframes hideCart {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(-1000px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="aa"></div>
+    <button onclick="cli1()">show</button>
+    <button onclick="cli2()">hide</button>
+  </body>
+</html>
+<script>
+  let aa = document.querySelector(".aa");
+  function cli1() {
+    aa.style.animation = "showCart 0.8s forwards";
+  }
+  function cli2() {
+    aa.style.animation = "hideCart 0.8s forwards";
+  }
+</script>
