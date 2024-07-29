@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        width: 100px;
+        height: 100px;
+        background-color: pink;
+        border-radius: 10px;
+        margin: 0 auto;
+        /* animation-fill-mode: forwards; */
+      }
+      /* @keyframes scale {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.2);
+        }
+      } */
+    </style>
+  </head>
+  <body>
+    <div
+      class="aaa"
+      onmousedown="mousedown(event)"
+      onmousemove="mousemove(event)"
+      onmouseup="mouseup(event)"
+    ></div>
+    <button id="playButton">click</button>
+    <!-- <script>
+      const element = document.querySelector(".aaa");
+      const button = document.getElementById("playButton");
+
+      // 添加点击事件处理器
+      button.addEventListener("click", () => {
+        element.style.transform = "translateX(100px)";
+        // 使用 play() 方法开始动画
+        element.animate(
+          [
+            { transform: "translateX(100px)" },
+            { transform: "translateX(5px)" },
+            { transform: "translateX(100px)" },
+          ],
+          {
+            duration: 500,
+            iterations: 1,
+          }
+        ).onfinish = () => {
+          // 动画结束后重置 scale 回到初始状态
+          element.style.transform = "translateX(100px)";
+        };
+      });
+    </script> -->
+    <script>
+      const element = document.querySelector(".aaa");
+      let initialX = 0,
+        initialY = 0;
+      let isMouseDown = false;
+      function mousedown(event) {
+        // event.preventDefault();
+        // event.stopPropagation();
+        isMouseDown = true;
+        initialX = event.pageX;
+        initialY = event.pageY;
+      }
+      function mousemove(event) {
+        if (isMouseDown) {
+          let x, y;
+          x = event.pageX - initialX;
+          y = event.pageY - initialY;
+          aaXY(x, y);
+        }
+      }
+      function mouseup() {
+        element.style.transition = "all 0.2s";
+        isMouseDown = false;
+        aaXY(0, 0);
+      }
+      function aaXY(x, y) {
+        element.style.transform = `translate(${x}px, ${y}px)`;
+        if (x === 0 && y === 0) {
+          setTimeout(() => {
+            element.style.transition = "none";
+          }, 200);
+        }
+      }
+    </script>
+  </body>
+</html>

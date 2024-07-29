@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        width: 100px;
+        height: 100px;
+        background-color: pink;
+        border-radius: 10px;
+        margin: 0 auto;
+        /* animation-fill-mode: forwards; */
+      }
+      /* @keyframes scale {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.2);
+        }
+      } */
+    </style>
+  </head>
+  <body>
+    <!-- onmousedown="mousedown(event)" -->
+    <!-- onmousemove="mousemove(event)" -->
+    <!-- onmouseup="mouseup(event)" -->
+    <div
+      class="aaa"
+      ontouchstart="touchstart(event)"
+      ontouchmove="touchmove(event)"
+      ontouchend="touchend(event)""
+    ></div>
+    <button id="playButton">click</button>
+    <script>
+      const element = document.querySelector(".aaa");
+      const button = document.getElementById("playButton");
+
+      // 添加点击事件处理器
+      button.addEventListener("click", () => {
+        element.style.transform = "scale(1)";
+        // 使用 play() 方法开始动画
+        element.animate(
+          [
+            { transform: "scale(1)" },
+            { transform: "scale(1.2)" },
+            { transform: "scale(1)" },
+          ],
+          {
+            duration: 500,
+            iterations: 1,
+          }
+        ).onfinish = () => {
+          // 动画结束后重置 scale 回到初始状态
+          element.style.transform = "scale(1)";
+        };
+      });
+    </script>
+    <script>
+       const element2 = document.querySelector(".aaa");
+      let initialX = 0,
+        initialY = 0,
+        startX=0,
+        startY=0;
+      let isMouseDown = false;
+      // function mousedown(event) {
+      //   // event.preventDefault();
+      //   // event.stopPropagation();
+      //   isMouseDown = true;
+      //   initialX = event.pageX;
+      //   initialY = event.pageY;
+      // }
+      // function mousemove(event) {
+      //   if (isMouseDown) {
+      //     let x, y;
+      //     x = event.pageX - initialX;
+      //     y = event.pageY - initialY;
+      //     aaXY(x, y);
+      //   }
+      // }
+      // function mouseup() {
+      //   element.style.transition = "all 0.2s";
+      //   isMouseDown = false;
+      //   aaXY(0, 0);
+      // }
+      // function aaXY(x, y) {
+      //   element.style.transform = `translate(${x}px, ${y}px)`;
+      //   if (x === 0 && y === 0) {
+      //     setTimeout(() => {
+      //       element.style.transition = "none";
+      //     }, 200);
+      //   }
+      // }
+      function touchstart(event){
+        const firstTouch = event.touches[0];
+        startX = firstTouch.clientX;
+        startY = firstTouch.clientY;
+      }
+      function touchmove(event){
+        const firstTouch = event.changedTouches[0];
+        let xValue = firstTouch.clientX - startX;
+        let yValue = firstTouch.clientY - startY;
+        changePlace(xValue,yValue)
+      }
+      function touchend(e){
+        changePlace(0,0)
+      }
+      function changePlace(x,y){
+        element2.style.transition="all 0.2s"
+        element2.style.transform=`translateX(${x}px) translateY(${y}px)`
+        setTimeout(()=>{
+          element2.style.transition="none"
+        },200)
+      }
+    </script>
+  </body>
+</html>

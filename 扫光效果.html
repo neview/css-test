@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* 文字扫光 */
+      /* h1 {
+        font-size: 60px;
+        font-family: "RZGFDHDHJ";
+        font-weight: normal;
+        color: #9747ff;
+        margin: 0 auto;
+      }
+      .shark-txt {
+        -webkit-text-fill-color: transparent;
+        background: linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0) 40%,
+            rgba(255, 255, 255, 0.7),
+            rgba(255, 255, 255, 0) 60%
+          ) -100% / 50% no-repeat currentColor;
+        -webkit-background-clip: text;
+        animation: shark-txt 3s infinite;
+      }
+
+      @keyframes shark-txt {
+        form {
+          background-position: -100%;
+        }
+        to {
+          background-position: 200%;
+        }
+      } */
+
+      /* 容器扫光 */
+      .card {
+        width: 300px;
+        border-radius: 8px;
+        background-color: #ffe8a3;
+      }
+      .card img {
+        display: block;
+        width: 100%;
+      }
+      .shark-wrap::after {
+        content: "";
+        position: absolute;
+        inset: -20%;
+        background: linear-gradient(
+          45deg,
+          rgba(255, 255, 255, 0) 40%,
+          rgba(255, 255, 255, 0.7),
+          rgba(255, 255, 255, 0) 60%
+        );
+        animation: shark-wrap 2s infinite;
+        transform: translateX(-100%);
+      }
+      .shark-wrap {
+        overflow: hidden;
+      }
+      @keyframes shark-wrap {
+        to {
+          transform: translateX(100%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 文字扫光 -->
+    <!-- <h1 class="shark-txt">芒果集团</h1> -->
+
+    <!-- 容器扫光 -->
+    <div class="shark-wrap card">
+      <img
+        src="https://imgservices-1252317822.image.myqcloud.com/coco/b11272023/ececa9a5.7y0amw.jpg"
+      />
+    </div>
+  </body>
+</html>

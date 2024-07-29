@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      :root {
+        animation: adjust-pos linear 3s;
+        animation-timeline: scroll();
+        /* --num: 0; */
+      }
+      .container {
+        height: 200px;
+        overflow-y: auto;
+        margin: 0 auto;
+      }
+      .item {
+        width: 100%;
+        height: 30px;
+        border-radius: 10px;
+        background-color: bisque;
+        margin-bottom: 20px;
+      }
+      @keyframes adjust-pos {
+        form {
+          --scroll-postion: 0;
+        }
+        to {
+          --scroll-postion: 100;
+        }
+      }
+
+      /* .debug {
+        width: 200px;
+        height: 50px;
+        counter-reset: scroll-position calc(var(--scroll-position) * 1);
+      }
+      [data-id="--scroll-position"]::after {
+        content: "--scroll-position: " counter(scroll-position);
+      } */
+      @property --num {
+        syntax: "<integer>";
+        initial-value: 0;
+        inherits: false;
+      }
+      .aaaa::after {
+        font-size: 36px;
+        counter-reset: num var(--num);
+        content: counter(num);
+        transition: 1s --num;
+      }
+      .aaaa:hover::after {
+        --num: 59;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+    </div>
+    <!-- <div class="debug">
+      <div data-id="--scroll-position"></div>
+    </div> -->
+    <div class="aaaa"></div>
+  </body>
+</html>

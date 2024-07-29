@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- <style>
+      button {
+        anchor-name: --anchor-el;
+        margin-top: 50px;
+      }
+      tooltip {
+        position: absolute;
+        position-anchor: --anchor-el;
+        bottom: anchor(top);
+        /* left: anchor(center);
+        transform: translateX(-50%); */
+        justify-self: anchor-center; /* 水平居中 */
+        align-self: anchor-center; /* 垂直居中 */
+      }
+    </style> -->
+    <style>
+      .tab::after {
+        content: "";
+        position: absolute;
+        border-radius: 100px;
+        background-color: rgba(65, 105, 225, 0.2);
+        position-anchor: --anchor-el;
+        width: anchor-size(width);
+        height: anchor-size(height);
+        left: anchor(left);
+        top: anchor(top);
+        transition: 0.3s;
+        pointer-events: none;
+      }
+      .item:target {
+        anchor-name: --anchor-el;
+      }
+
+      .btn {
+        anchor-name: --menu;
+      }
+      .menu {
+        position-anchor: --menu;
+        inset-area: bottom span-right;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <button>button</button>
+    <tooltip>tooltip</tooltip> -->
+    <nav class="tab">
+      <a class="item" href="#HTML" name="HTML">HTML</a>
+      <a class="item" href="#CSS" name="CSS">CSS</a>
+      <a class="item" href="#JavaScript" name="JavaScript">JavaScript</a>
+      <a class="item" href="#React" name="React">React</a>
+      <a class="item" href="#Vue" name="Vue">Vue</a>
+    </nav>
+    <button class="btn" popovertarget="more">click</button>
+    <div class="menu" id="more" popover>
+      <button class="item">编辑</button>
+      <button class="item">删除</button>
+    </div>
+  </body>
+</html>
