@@ -5,58 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-      :root {
-        animation: adjust-pos linear 3s;
-        animation-timeline: scroll();
-        /* --num: 0; */
+      /* div::after {
+        font-size: 28px;
+        counter-reset: num var(--num);
+        content: counter(num);
+        transition: --num 1s;
       }
-      .container {
-        height: 200px;
-        overflow-y: auto;
-        margin: 0 auto;
-      }
-      .item {
-        width: 100%;
-        height: 30px;
-        border-radius: 10px;
-        background-color: bisque;
-        margin-bottom: 20px;
-      }
-      @keyframes adjust-pos {
-        form {
-          --scroll-postion: 0;
-        }
-        to {
-          --scroll-postion: 100;
-        }
+      div:hover::after {
+        --num: 59;
       }
 
-      /* .debug {
-        width: 200px;
-        height: 50px;
-        counter-reset: scroll-position calc(var(--scroll-position) * 1);
-      }
-      [data-id="--scroll-position"]::after {
-        content: "--scroll-position: " counter(scroll-position);
-      } */
       @property --num {
         syntax: "<integer>";
         initial-value: 0;
         inherits: false;
       }
-      .aaaa::after {
-        font-size: 36px;
-        counter-reset: num var(--num);
-        content: counter(num);
-        transition: 1s --num;
+      @property --num2 {
+        syntax: "<integer>";
+        initial-value: 0;
+        inherits: false;
       }
-      .aaaa:hover::after {
-        --num: 59;
+
+      @keyframes num2 {
+        to {
+          --num2: 10;
+        }
+      }
+      span::after {
+        counter-reset: num2 var(--num2);
+        content: counter(num2);
+      }
+      span {
+        animation: num2 1s infinite steps(10);
+      } */
+
+      :root {
+        animation: adjust-pos linear 3s;
+        animation-timeline: scroll();
+      }
+      .debug {
+        counter-reset: scroll-position calc(var(--scroll-position) * 1);
+        position: fixed;
+        top: 0;
+        left: 0;
+      }
+      [data-id="--scroll-position"]::after {
+        content: "--scroll-position: " counter(scroll-position);
+      }
+      @keyframes adjust-pos {
+        form {
+          --scroll-position: 0;
+        }
+        to {
+          --scroll-position: 100;
+        }
+      }
+
+      @property --scroll-position {
+        syntax: "<number>";
+        initial-value: 0;
+        inherits: true;
+      }
+      .item {
+        width: 50%;
+        height: 100px;
+        border-radius: 20rpx;
+        background-color: antiquewhite;
+        margin-bottom: 20px;
       }
     </style>
   </head>
   <body>
-    <div class="container">
+    <!-- <div></div>
+    <span></span> -->
+    <body>
       <div class="item"></div>
       <div class="item"></div>
       <div class="item"></div>
@@ -73,10 +95,18 @@
       <div class="item"></div>
       <div class="item"></div>
       <div class="item"></div>
-    </div>
-    <!-- <div class="debug">
-      <div data-id="--scroll-position"></div>
-    </div> -->
-    <div class="aaaa"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+
+      <div class="debug">
+        <div data-id="--scroll-position"></div>
+      </div>
+    </body>
   </body>
 </html>
