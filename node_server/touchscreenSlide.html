@@ -5,58 +5,220 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-      .box {
-        width: 100px;
-        height: 100px;
-        margin: 0 auto;
-        background-color: antiquewhite;
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .preview_img,
+      .preview_img2 {
+        width: 150px;
+        height: 230px;
+        margin: 30px;
+      }
+      .mask {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        display: none;
+        animation-fill-mode: forwards;
+      }
+      .show_preview_img {
+        object-fit: contain;
+        position: fixed;
+        display: none;
+      }
+      @keyframes showMask {
+        0% {
+          display: block;
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+          display: block;
+        }
+      }
+
+      @keyframes mideMask {
+        100% {
+          display: block;
+          opacity: 1;
+        }
+        0% {
+          display: none;
+          opacity: 0;
+        }
       }
     </style>
   </head>
   <body>
-    <div class="box"></div>
+    <img
+      class="preview_img"
+      src="https://gw.alicdn.com/tfscom/i4/O1CN01vzguDj1jOSJrZB5WW_!!6000000004538-2-alipicbeacon.png_800x800.jpg"
+      alt=""
+      onclick="showPreviewImg(event)"
+    />
+    <div class="mask"></div>
+    <img
+      class="show_preview_img"
+      src=""
+      alt=""
+      onclick="hidePreviewImg(event)"
+    />
   </body>
 </html>
 <script>
-  let startX;
-  let startY;
-  let deltaX;
-  let deltaY;
-  // let endX;
-  // let endY;
-  let isDragging = false;
-  let element = document.querySelector(".box");
-  element.addEventListener("touchstart", function (event) {
-    isDragging = true;
-    if (startX || startY) return;
-    const firstTouch = event.touches[0];
-    startX = firstTouch.clientX;
-    startY = firstTouch.clientY;
-  });
-  element.addEventListener(
-    "touchmove",
-    function (event) {
-      if (!isDragging) return;
+  let preImg = document.querySelector(".preview_img"),
+    showPreImg = document.querySelector(".show_preview_img"),
+    mask = document.querySelector(".mask"),
+    screenCenter = getScreenCenter(),
+    width,
+    height;
 
-      const currentTouch = event.changedTouches[0];
-      let endX = currentTouch.clientX;
-      let endY = currentTouch.clientY;
+  function showPreviewImg(event) {
+    let { clientWidth, clientHeight, offsetTop, offsetLeft } = event.target;
+    Object.assign(showPreImg.style, {
+      width: clientWidth + "px",
+      height: clientHeight + "px",
+      top: offsetTop + "px",
+      left: offsetLeft + "px",
+      display: "block",
+    });
+    Width = clientWidth;
+    Height = clientHeight;
 
-      deltaX = endX - startX;
-      deltaY = endY - startY;
-
-      // console.log("deltaX：" + deltaX + "--deltaY：" + deltaY);
-      element.style.transform = `translate(${deltaX}px,${deltaY}px)`;
-      if (window.pageYOffset === 0) {
-        event.preventDefault();
+    showPreImg.src = event.target.src;
+    mask.style.display = "block";
+    mask.style.animation = "showMask 0.3s";
+    showPreImg.animate(
+      [
+        {
+          transform: `translate(${
+            offsetTop * (window.innerWidth / clientWidth)
+          }px,${
+            screenCenter.y - offsetLeft * (window.innerWidth / clientWidth)
+          }px) scale(${window.innerWidth / clientWidth})`,
+        },
+      ],
+      {
+        duration: 200,
+        iterations: 1,
+        fill: "forwards",
       }
-    },
-    { passive: false }
-  );
-  element.addEventListener("touchend", function (event) {
-    console.log("结束", event);
-    startX = deltaX;
-    startY = deltaY;
-    isDragging = false;
-  });
+    );
+  }
+
+  function hidePreviewImg(event) {
+    event.stopPropagation();
+    // mask.style.animation = "mideMask 0.3s";
+    mask.animate(
+      [
+        {
+          opacity: 0,
+        },
+      ],
+      {
+        duration: 200,
+        iterations: 1,
+        fill: "forwards",
+      }
+    ).onfinish = () => {
+      mask.style.display = "none";
+    };
+    showPreImg.animate(
+      [
+        {
+          transform: `translate(0,0) scale(1)`,
+        },
+      ],
+      {
+        duration: 200,
+        iterations: 1,
+        fill: "forwards",
+      }
+    ).onfinish = () => {
+      showPreImg.style.display = "none";
+    };
+  }
+
+  function getScreenCenter() {
+    // const screenWidth =
+    //   window.innerWidth || document.documentElement.clientWidth;
+    // const screenHeight =
+    //   window.innerHeight || document.documentElement.clientHeight;
+
+    // const centerX = screenWidth / 2;
+    // const centerY = screenHeight / 2;
+
+    // return { x: centerX, y: centerY };
+
+    // 获取浏览器可视窗口的宽度和高度
+    const windowWidth =
+      window.innerWidth || document.documentElement.clientWidth;
+    const windowHeight =
+      window.innerHeight || document.documentElement.clientHeight;
+
+    // 计算窗口中心点坐标
+    const centerX = windowWidth / 2;
+    const centerY = windowHeight / 2;
+
+    return { x: centerX, y: centerY };
+  }
 </script>
+<!-- <script>
+  // 图片全屏预览
+  const image = document.getElementById("myImage");
+
+  // 监听点击事件
+  image.addEventListener("click", function () {
+    if (
+      document.fullscreenElement ||
+      document.webkitIsFullScreen ||
+      document.mozFullScreen ||
+      document.msFullscreenElement
+    ) {
+      // 如果已经在全屏模式下，则退出全屏
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    } else {
+      // 否则进入全屏模式
+      if (this.requestFullscreen) {
+        this.requestFullscreen();
+      } else if (this.mozRequestFullScreen) {
+        this.mozRequestFullScreen();
+      } else if (this.webkitRequestFullscreen) {
+        this.webkitRequestFullscreen();
+      } else if (this.msRequestFullscreen) {
+        this.msRequestFullscreen();
+      }
+    }
+  });
+
+  // 监听全屏变化事件
+  document.addEventListener("fullscreenchange", function () {
+    if (
+      !document.fullscreenElement &&
+      !document.webkitIsFullScreen &&
+      !document.mozFullScreen &&
+      !document.msFullscreenElement
+    ) {
+      console.log("退出全屏");
+    } else {
+      console.log("进入全屏");
+    }
+  });
+
+  // 监听全屏错误事件
+  document.addEventListener("fullscreenerror", function () {
+    console.error("全屏失败");
+  });
+</script> -->

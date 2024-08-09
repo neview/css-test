@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .scale_box {
+        width: 100px;
+        height: 100px;
+        background-color: antiquewhite;
+        border-radius: 10px;
+        margin: 30px auto;
+      }
+      .scale_big {
+        background-color: aquamarine;
+        position: fixed;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="scale_box"></div>
+    <div class="scale_big"></div>
+  </body>
+</html>
+<script>
+  let box = document.querySelector(".scale_box"),
+    bigBox = document.querySelector(".scale_big"),
+    rect = box.getBoundingClientRect(),
+    screenCenter = getScreenCenter();
+  bigBox.style.display = "none";
+  let Width, Height, Top, Left;
+  box.addEventListener("click", (event) => {
+    let { clientWidth, clientHeight, offsetTop, offsetLeft } = event.target;
+    Object.assign(bigBox.style, {
+      width: `${clientWidth}px`,
+      height: `${clientHeight}px`,
+      top: `${offsetTop}px`,
+      left: `${offsetLeft}px`,
+    });
+    Width = clientWidth;
+    Height = clientHeight;
+    Top = offsetTop;
+    Left = offsetLeft;
+    bigBox.style.display = "block";
+    // play
+    bigBox.animate(
+      [
+        {
+          width: "100%",
+          height: "100%",
+          transform: `translate(${-offsetLeft}px,${-offsetTop}px)`,
+        },
+      ],
+      {
+        duration: 300,
+        iterations: 1,
+        fill: "forwards",
+      }
+    ).onfinish = () => {};
+  });
+
+  bigBox.addEventListener("click", (event) => {
+    bigBox.animate(
+      [
+        {
+          width: `${Width}px`,
+          height: `${Height}px`,
+          transform: `translate(0,0)`,
+        },
+      ],
+      {
+        duration: 300,
+        iterations: 1,
+        fill: "forwards",
+      }
+    ).onfinish = () => {
+      bigBox.style.display = "none";
+    };
+  });
+
+  function getScreenCenter() {
+    const screenWidth =
+      window.innerWidth || document.documentElement.clientWidth;
+    const screenHeight =
+      window.innerHeight || document.documentElement.clientHeight;
+
+    const centerX = screenWidth / 2;
+    const centerY = screenHeight / 2;
+
+    return { x: centerX, y: centerY };
+  }
+</script>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .box {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+        background-color: antiquewhite;
+      }
+      .mask {
+        width: 100%;
+        height: 100%;
+        background-color: rgb(2, 2, 2);
+        position: fixed;
+      }
+      .mask img {
+        width: 100%;
+        height: 100%;
+        /* object-position: center; */
+        object-fit: contain;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box"></div>
+    <div class="mask">
+      <img
+        src="https://gw.alicdn.com/tfscom/i4/O1CN01vzguDj1jOSJrZB5WW_!!6000000004538-2-alipicbeacon.png_800x800.jpg"
+        alt=""
+      />
+    </div>
+  </body>
+</html>
+<script>
+  let startX,
+    startY,
+    startY2,
+    deltaX,
+    deltaY,
+    deltaY2,
+    scaleImg = 1,
+    clarity = 1,
+    Width,
+    Height,
+    Top,
+    Left,
+    isDragging = false,
+    element = document.querySelector(".box"),
+    maskBox = document.querySelector(".mask"),
+    img = document.querySelector("img"),
+    screenCenter = getScreenCenter();
+
+  maskBox.style.display = "none";
+  element.addEventListener("click", function (event) {
+    const rect = element.getBoundingClientRect();
+    let { clientWidth, clientHeight, offsetTop, offsetLeft } = event.target;
+    Object.assign(maskBox.style, {
+      width: `${clientWidth}px`,
+      height: `${clientHeight}px`,
+      top: `${offsetTop}px`,
+      left: `${offsetLeft}px`,
+    });
+    Width = clientWidth;
+    Height = clientHeight;
+    Top = offsetTop;
+    Left = offsetLeft;
+    maskBox.style.display = "block";
+    maskBox.animate(
+      [
+        {
+          width: "100%",
+          height: "100%",
+          transform: `translate(${-offsetLeft}px,${-offsetTop}px)`,
+        },
+      ],
+      {
+        duration: 300,
+        iterations: 1,
+        fill: "forwards",
+      }
+    ).onfinish = () => {};
+  });
+  // element.addEventListener("touchstart", function (event) {
+  //   isDragging = true;
+  //   if (startX && startY) return;
+  //   const firstTouch = event.touches[0];
+  //   startX = firstTouch.clientX;
+  //   startY = firstTouch.clientY;
+  // });
+  // element.addEventListener(
+  //   "touchmove",
+  //   function (event) {
+  //     if (!isDragging) return;
+
+  //     const currentTouch = event.changedTouches[0];
+  //     let endX = currentTouch.clientX;
+  //     let endY = currentTouch.clientY;
+
+  //     deltaX = endX - startX;
+  //     deltaY = endY - startY;
+
+  //     element.style.transform = `translate(${deltaX}px,${deltaY}px)`;
+  //     if (window.pageYOffset === 0) {
+  //       event.preventDefault();
+  //     }
+  //   },
+  //   { passive: false }
+  // );
+  // element.addEventListener("touchend", function (event) {
+  //   isDragging = false;
+  // });
+
+  // img
+  img.addEventListener("touchstart", function (event) {
+    isDragging = true;
+    if (startY2) return;
+    const firstTouch = event.touches[0];
+    startY2 = firstTouch.clientY;
+  });
+  img.addEventListener(
+    "touchmove",
+    function (event) {
+      const currentTouch = event.changedTouches[0];
+      let endX = currentTouch.clientX;
+      let endY = currentTouch.clientY;
+
+      if (endY - startY2 <= 0) return;
+
+      if (deltaY2 > 0 && endY - startY2 < deltaY2) {
+        // 上移
+        scaleImg += 0.002;
+        clarity += 0.005;
+      } else {
+        //下移
+        scaleImg -= 0.002;
+        clarity -= 0.005;
+      }
+      deltaY2 = endY - startY2;
+      img.style.transform = `translateY(${deltaY2}px) scale(${scaleImg})`;
+      maskBox.style.opacity = clarity;
+      if (window.pageYOffset === 0) {
+        event.preventDefault();
+      }
+    },
+    { passive: false }
+  );
+  img.addEventListener("touchend", function (event) {
+    if (deltaY2 > 250) {
+      maskBox.style.display = "none";
+      img.style.display = "none";
+    }
+    img.style.transform = `translateY(0px)`;
+    maskBox.style.opacity = 1;
+    deltaY2 = startY2 = 0;
+    scaleImg = clarity = 1;
+  });
+
+  // 获取屏幕的中心点坐标
+  function getScreenCenter() {
+    const screenWidth =
+      window.innerWidth || document.documentElement.clientWidth;
+    const screenHeight =
+      window.innerHeight || document.documentElement.clientHeight;
+
+    const centerX = screenWidth / 2;
+    const centerY = screenHeight / 2;
+
+    return { x: centerX, y: centerY };
+  }
+</script> -->
