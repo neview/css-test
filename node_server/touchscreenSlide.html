@@ -41,7 +41,7 @@
         }
       }
 
-      @keyframes mideMask {
+      @keyframes hideMask {
         100% {
           display: block;
           opacity: 1;
@@ -91,7 +91,18 @@
 
     showPreImg.src = event.target.src;
     mask.style.display = "block";
-    mask.style.animation = "showMask 0.3s";
+    mask.animate(
+      [
+        {
+          opacity: 1,
+        },
+      ],
+      {
+        duration: 200,
+        iterations: 1,
+        fill: "forwards",
+      }
+    );
     showPreImg.animate(
       [
         {
@@ -112,7 +123,7 @@
 
   function hidePreviewImg(event) {
     event.stopPropagation();
-    // mask.style.animation = "mideMask 0.3s";
+    // mask.style.animation = "hideMask 0.3s";
     mask.animate(
       [
         {
@@ -144,16 +155,6 @@
   }
 
   function getScreenCenter() {
-    // const screenWidth =
-    //   window.innerWidth || document.documentElement.clientWidth;
-    // const screenHeight =
-    //   window.innerHeight || document.documentElement.clientHeight;
-
-    // const centerX = screenWidth / 2;
-    // const centerY = screenHeight / 2;
-
-    // return { x: centerX, y: centerY };
-
     // 获取浏览器可视窗口的宽度和高度
     const windowWidth =
       window.innerWidth || document.documentElement.clientWidth;

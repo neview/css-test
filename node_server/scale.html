@@ -9,7 +9,8 @@
         margin: 0;
         padding: 0;
       }
-      .scale_box {
+      .scale_box,
+      .scale_box2 {
         width: 100px;
         height: 100px;
         background-color: antiquewhite;
@@ -24,11 +25,23 @@
     </style>
   </head>
   <body>
-    <div class="scale_box"></div>
-    <div class="scale_big"></div>
+    <!-- <div class="scale_box"></div>
+    <div class="scale_big"></div> -->
+    <div class="scale_box2">scale</div>
   </body>
 </html>
 <script>
+  let box2 = document.getElementsByClassName("scale_box2");
+  let scaleValue = 1;
+  box2.addEventListener("touchmove", (event) => {
+    if (event.touches.length === 2) {
+      // 双指触摸
+      scaleValue += 0.01;
+      box2.style.transform = `scale(${scaleValue})`;
+    }
+  });
+</script>
+<!-- <script>
   let box = document.querySelector(".scale_box"),
     bigBox = document.querySelector(".scale_big"),
     rect = box.getBoundingClientRect(),
@@ -95,7 +108,7 @@
 
     return { x: centerX, y: centerY };
   }
-</script>
+</script> -->
 
 <!-- <!DOCTYPE html>
 <html lang="en">
