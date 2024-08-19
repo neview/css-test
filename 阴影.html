@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .back {
+        width: 200px;
+        height: 200px;
+        background-image: url("https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?1724038868631");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        position: relative;
+      }
+      .mask {
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.25);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(19px);
+        -webkit-backdrop-filter: blur(19px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        position: absolute;
+        top: 100px;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="back">
+      <div class="mask"></div>
+    </div>
+  </body>
+</html>
