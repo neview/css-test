@@ -8,19 +8,17 @@
       body {
         background-color: rgb(54, 54, 54);
       }
-      .tips_list {
-        width: 200px;
+      .box {
+        width: 300px;
         height: 400px;
         border: 1px solid pink;
-        overflow-y: auto;
-        transition: all 0.5s;
+        overflow: hidden;
       }
       .tips {
-        width: 180px;
-        height: 30px;
-        background-color: pink;
+        width: 80%;
         margin: 0 auto;
         margin-top: 10px;
+        background-color: pink;
       }
 
       .show_tips {
@@ -30,35 +28,56 @@
 
       @keyframes showTips {
         0% {
+          height: 0;
           transform: scale(0);
         }
         100% {
+          height: 30px;
           transform: scale(1);
+        }
+      }
+
+      .hide_tips {
+        animation: hideTips 0.5s;
+        animation-fill-mode: forwards;
+      }
+
+      @keyframes hideTips {
+        0% {
+          height: 30px;
+          transform: scale(1);
+        }
+        100% {
+          height: 0;
+          transform: scale(0);
         }
       }
     </style>
   </head>
   <body>
-    <div class="tips_list"></div>
-    <button onclick="addTips()">添加</button>
+    <div class="box"></div>
+    <button onclick="addItem()">add</button>
   </body>
 </html>
 <script>
-  let tipsList = document.querySelector(".tips_list"),
+  let box = document.querySelector(".box"),
     index = 0;
-  function addTips() {
+  function addItem() {
     const newTip = document.createElement("div");
     newTip.innerText = index;
     newTip.classList.add("tips");
     newTip.classList.add("show_tips");
-    if (tipsList.children.length === 0) {
-      tipsList.appendChild(newTip);
+    if (box.children.length === 0) {
+      box.appendChild(newTip);
     } else {
-      [...tipsList.children].map((item) => {
-        item.classList.remove("show_tips");
-        item.style.marginTop = "40px";
-      });
-      tipsList.insertBefore(newTip, tipsList.firstChild);
+      box.insertBefore(newTip, box.firstChild);
+
+      if (box.children.length > 5) {
+        box.lastChild.classList.add("hide_tips");
+        setTimeout(() => {
+          box.removeChild(box.lastChild);
+        }, 200);
+      }
     }
     index++;
   }
