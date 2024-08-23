@@ -71,12 +71,11 @@
       box.appendChild(newTip);
     } else {
       box.insertBefore(newTip, box.firstChild);
-
       if (box.children.length > 5) {
         box.lastChild.classList.add("hide_tips");
         setTimeout(() => {
           box.removeChild(box.lastChild);
-        }, 200);
+        }, 300);
       }
     }
     index++;
