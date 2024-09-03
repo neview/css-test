@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        width: 150px;
+        height: 150px;
+        background-color: antiquewhite;
+        margin: 20px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="width_input">
+      width：
+      <input
+        type="range"
+        name=""
+        id=""
+        value="2"
+        min="100"
+        max="150"
+        step="5"
+        oninput="widthChange(event)"
+      />
+    </div>
+    <div class="blur_input">
+      blur：
+      <input
+        type="range"
+        name=""
+        id=""
+        value="8"
+        min="0"
+        max="10"
+        step="0.1"
+        oninput="blurChange(event)"
+      />
+    </div>
+    <div class="box"></div>
+  </body>
+</html>
+<script>
+  let box = document.querySelector(".box");
+  function widthChange(event) {
+    let value = event.target.value;
+    box.style.width = value + "px";
+  }
+
+  function blurChange(event) {
+    let value = event.target.value;
+    box.style.filter = `blur(${value}px)`;
+  }
+</script>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: #000;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      div {
+        padding: 10px;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="A">A</div>
+    <div class="S">S</div>
+    <div class="D">D</div>
+    <div class="F">F</div>
+    <div class="G">G</div>
+  </body>
+</html>
+<script>
+  let arr = ["A", "S", "D", "F", "G", "H", "J"];
+
+  for (let i = 0; i < arr.length; i++) {
+    let div = document.createElement("div");
+    div.className = arr[i];
+    div.innerHTML = arr[i];
+    document.body.appendChild(div);
+  }
+  let divs = document.querySelectorAll("div");
+  let key;
+
+  document.addEventListener("keydown", (event) => {
+    key = event.key.toLocaleUpperCase();
+    if (arr.lastIndexOf(key) >= 0) {
+      let index = arr.lastIndexOf(key);
+      divs[index].style.backgroundColor = "red";
+    }
+  });
+
+  //   document.addEventListener("keypress", (event) => {
+  //     if (event.key !== key) {
+  //       key = event.key;
+  //       return;
+  //     }
+  //   });
+
+  document.addEventListener("keyup", (event) => {
+    key = event.key.toLocaleUpperCase();
+    if (arr.lastIndexOf(key) >= 0) {
+      let index = arr.lastIndexOf(key);
+      divs[index].style.backgroundColor = "#000";
+    }
+  });
+</script>
