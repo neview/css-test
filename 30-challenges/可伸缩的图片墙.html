@@ -5,22 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
+      :root {
+        --grid-columns: 1fr 1fr 1fr 1fr;
+      }
       * {
         margin: 0;
         padding: 0;
       }
       .box {
         height: 100vh;
-        /* display: grid;
-        grid-template-columns: repeat(4, 1fr); */
-        display: flex;
-        align-items: center;
+        display: grid;
+        grid-template-columns: var(--grid-columns);
+        transition: all 0.5s;
+        /* display: flex;
+        align-items: center; */
       }
       .box div {
-        width: 25%;
-        height: 100%;
+        /* width: 25%; */
+        /* height: 100%; */
         background-color: antiquewhite;
-        /* transition: all 0.5s; */
       }
       .edit_width {
         animation: editWidth 0.5s;
@@ -29,72 +32,75 @@
 
       @keyframes editWidth {
         0% {
-          transform: scaleX(1);
+          width: 25%;
         }
         30% {
-          transform: scaleX(0.8);
+          width: 20%;
         }
         100% {
-          transform: scaleX(1.5);
+          width: 40%;
         }
       }
     </style>
   </head>
   <body>
     <div class="box" onclick="boxClick(event)">
-      <div>one</div>
-      <div style="background-color: rgb(235, 223, 208)">two</div>
-      <div>three</div>
-      <div style="background-color: rgb(148, 145, 142)">four</div>
+      <div>1</div>
+      <div style="background-color: rgb(235, 223, 208)">2</div>
+      <div>3</div>
+      <div style="background-color: rgb(148, 145, 142)">4</div>
     </div>
   </body>
 </html>
 <script>
   let boxs = document.querySelectorAll(".box div");
+  let box2 = document.querySelector(".box");
   let obj;
+  // function boxClick(event) {
+  //   let isTrue = areAllValuesEqual([...boxs]);
+  //   if (isTrue) {
+  //     event.target.style.width = "40%";
+  //   } else {
+  //     if (obj === event.target.innerText) {
+  //       boxs.forEach((item) => {
+  //         item.style.width = "25%";
+  //       });
+  //     } else {
+  //       boxs.forEach((item) => {
+  //         item.style.width = "20%";
+  //       });
+  //       event.target.style.width = "40%";
+  //     }
+  //   }
+  //   obj = event.target.innerText;
+  // }
+
   function boxClick(event) {
     let isTrue = areAllValuesEqual([...boxs]);
     if (isTrue) {
-      event.target.style.width = "40vw";
+      numValue(event);
     } else {
       if (obj === event.target.innerText) {
-        boxs.forEach((item) => {
-          item.style.width = "25%";
-        });
+        box2.style.setProperty("--grid-columns", "1fr 1fr 1fr 1fr");
       } else {
-        boxs.forEach((item) => {
-          item.style.width = "20%";
-        });
-        event.target.style.width = "40%";
+        numValue(event);
       }
     }
     obj = event.target.innerText;
   }
-
-  //   function boxClick(event) {
-  //     console.log("添加", event);
-  //     let isTrue = areAllValuesEqual([...boxs]);
-  //     if (isTrue) {
-  //       event.target.classList.add("edit_width");
-  //     } else {
-  //       if (obj === event.target.innerText) {
-  //         boxs.forEach((item) => {
-  //           item.style.width = "25%";
-  //         });
-  //       } else {
-  //         boxs.forEach((item) => {
-  //           item.style.width = "20%";
-  //         });
-  //         event.target.style.width = "40%";
-  //       }
-  //     }
-  //     obj = event.target.innerText;
-  //   }
 
   function areAllValuesEqual(arr) {
     if (arr.length === 0) return true;
     return !arr.some(
       (val, index, array) => val.offsetWidth !== array[0].offsetWidth
     );
+  }
+
+  function numValue(dom) {
+    let arr = "";
+    for (let i = 1; i < 5; i++) {
+      i === Number(dom.target.innerText) ? (arr += "1.5fr ") : (arr += "1fr ");
+    }
+    box2.style.setProperty("--grid-columns", arr);
   }
 </script>
