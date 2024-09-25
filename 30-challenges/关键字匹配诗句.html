@@ -7,3 +7,15 @@
   </head>
   <body></body>
 </html>
+<script>
+  fetch(
+    "https://gist.githubusercontent.com/soyaine/81399bb2b24ca1bb5313e1985533c640/raw/bdf7df2cbcf70706c4a5e51a7dfb8c933ed78878/TangPoetry.json",
+    {
+      method: "GET", // 默认值就是GET
+    }
+  )
+    .then((data) => console.log(data)) // 打印解析后的数据
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+</script>
