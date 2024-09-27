@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: black;
+      }
+      .tab_list {
+        width: 240px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 300px auto;
+        position: relative;
+      }
+      .list {
+        padding: 10px;
+        margin-right: 10px;
+        cursor: pointer;
+      }
+      .list span {
+        display: inline-block;
+        width: 40px;
+        height: 3px;
+        border-radius: 20px;
+        background-color: rgb(196, 195, 195);
+      }
+      .hover_img {
+        width: 200px;
+        height: 120px;
+        position: absolute;
+        bottom: 30px;
+        left: -10px;
+        background-color: aliceblue;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 4px solid #ffffff;
+        transform: scale(0);
+      }
+      .img_list {
+        width: 200px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .img_list div {
+        width: 300px;
+        height: 200px;
+        border-radius: 10px;
+      }
+      .img_list div:nth-child(2n) {
+        background-color: antiquewhite;
+      }
+      .img_list div:nth-child(2n-1) {
+        background-color: aquamarine;
+      }
+
+      .show_box {
+        animation: showBox 0.3s forwards;
+      }
+
+      .hide_box {
+        animation: hideBox 0.3s forwards;
+      }
+
+      @keyframes showBox {
+        0% {
+          transform: scale(0);
+        }
+
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes hideBox {
+        0% {
+          transform: scale(1);
+        }
+
+        100% {
+          transform: scale(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="tab_list"
+      onmouseenter="tabMouseenter(event)"
+      onmouseleave="tabMouseleave(event)"
+    ></div>
+  </body>
+</html>
+<script>
+  let hoverImg;
+  let tabList = document.getElementsByClassName("tab_list")[0];
+  addNode();
+  function tabMouseenter(e) {
+    hoverImg.classList.remove("hide_box");
+    hoverImg.classList.add("show_box");
+  }
+
+  function tabMouseleave(e) {
+    hoverImg.classList.remove("show_box");
+    hoverImg.classList.add("hide_box");
+  }
+
+  function mouseenter(e) {
+    console.log("移入", e);
+  }
+
+  function mouseleave(e) {
+    // console.log("移出", e.srcElement);
+  }
+
+  function addNode() {
+    let str = "";
+    for (let i = 0; i < 4; i++) {
+      str += ` <div class="list" 
+      onmouseenter="mouseenter(event)"
+      onmouseleave="mouseleave(event)">
+        <span></span>
+      </div>`;
+    }
+    str += `<div class="hover_img">
+        <div class="img_list">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>`;
+    tabList.innerHTML = str;
+    hoverImg = document.getElementsByClassName("hover_img")[0];
+  }
+</script>
