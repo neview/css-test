@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .search {
+        width: 200px;
+        height: 30px;
+        border-radius: 30px;
+        background-color: #ececec;
+        position: relative;
+        margin: 30px auto;
+      }
+      .search_info {
+        width: 200px;
+        position: absolute;
+        top: 15px;
+        left: 0;
+        height: 0;
+        background-color: #a3a2a2;
+        border-radius: 0 0 10px 10px;
+      }
+
+      @keyframes show {
+        0% {
+          height: 0;
+        }
+        100% {
+          height: 100px;
+        }
+      }
+
+      @keyframes hide {
+        0% {
+          height: 100px;
+        }
+        100% {
+          height: 0;
+        }
+      }
+
+      @keyframes zoom {
+        0% {
+          width: 200px;
+          height: 30px;
+          margin: 0;
+        }
+        100% {
+          width: 100vw;
+          height: 100vh;
+          margin: 0;
+        }
+      }
+
+      .showSearch {
+        animation: show 0.5s;
+        animation-fill-mode: forwards;
+      }
+
+      .hideSearch {
+        animation: hide 0.5s;
+        animation-fill-mode: forwards;
+      }
+
+      .zoomSearch {
+        animation: zoom 0.5s;
+        animation-fill-mode: forwards;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="search" onclick="searchClick()">
+      <div>AAA</div>
+      <img
+        src=""
+        alt=""
+        style="width: 30px; height: 30px; background-color: pink"
+      />
+      <div class="search_info"></div>
+    </div>
+  </body>
+</html>
+<script>
+  let searchInfo = document.querySelector(".search_info");
+  let search = document.querySelector(".search");
+  let bool = false;
+  function searchClick() {
+    // if (bool) {
+    //   searchInfo.classList.add("hideSearch");
+    //   searchInfo.classList.remove("showSearch");
+    // } else {
+    //   searchInfo.classList.add("showSearch");
+    //   searchInfo.classList.remove("hideSearch");
+    // }
+    // bool = !bool;
+    search.classList.add("zoomSearch");
+  }
+</script>
