@@ -10,6 +10,7 @@
         padding: 0;
       }
       body {
+        height: 2000px;
         background-color: black;
       }
       .content {
@@ -18,16 +19,38 @@
         background-color: #f7d1d1;
         border-radius: 10px;
       }
+      .box {
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        margin: 50px 10px;
+      }
+      .box:nth-child(2n) {
+        background-color: #f5d2d2;
+      }
+      .box:nth-child(2n-1) {
+        background-color: #e7bdf8;
+      }
     </style>
   </head>
   <body>
-    <div class="content"></div>
+    <!-- <div class="content"></div> -->
+    <!-- <div
+      style="display: flex; align-items: center; flex-wrap: wrap; width: 500px"
+    > -->
+    <div class="box" style="margin-top: 800px"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <!-- </div> -->
   </body>
 </html>
-<
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/CustomEase.min.js"></script>
-<script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<!-- <script>
   //   gsap.registerPlugin(CustomBounce);
   gsap.to(".content", {
     x: 200,
@@ -37,12 +60,12 @@
     repeat: 2,
     delay: 1,
     repeatDelay: 1,
-    ease: CustomBounce.create("myBounce", {
-      strength: 0.7,
-      endAtStart: false,
-      squash: 1,
-      squashID: "myBounce-squash",
-    }),
+    // ease: CustomBounce.create("myBounce", {
+    //   strength: 0.7,
+    //   endAtStart: false,
+    //   squash: 1,
+    //   squashID: "myBounce-squash",
+    // }),
   });
   //create an object
 
@@ -57,4 +80,84 @@
   //      },
   //   });
   // }, 1000);
+</script> -->
+<script>
+  // gsap.to(".box", {
+  //   y: 100,
+  //   stagger: -0.1,
+  // });
+
+  // var grid = [5, 13], //[rows, columns]
+  //   tl = gsap.timeline({ repeat: -1, repeatDelay: 0.5 });
+
+  // function animateBoxes(from, axis, ease) {
+  //   //one stagger call does all the animation:
+  //   tl.to(".box", {
+  //     duration: 1,
+  //     scale: 0.1,
+  //     y: 60,
+  //     yoyo: true,
+  //     repeat: 1,
+  //     ease: "power1.inOut",
+  //     stagger: {
+  //       amount: 1.5,
+  //       grid: grid,
+  //       axis: axis,
+  //       ease: ease,
+  //       from: from,
+  //     },
+  //   });
+  // }
+
+  // animateBoxes("center", "x", "ease");
+
+  // gsap.to(".box", {
+  //   duration: 1,
+  //   y: 2000,
+  //   scrollTrigger: {
+  //     trigger: "body",
+  //     start: "center center",
+  //     end: "bottom top",
+  //     scrub: true,
+  //     onEnter: () => {
+  //       console.log("元素进入视口");
+  //     },
+  //     onLeave: () => {
+  //       console.log("元素离开视口");
+  //     },
+  //     onEnterBack: () => {
+  //       console.log("元素重新进入视口");
+  //     },
+  //     onLeaveBack: () => {
+  //       console.log("元素重新离开视口");
+  //     },
+  //     onUpdate: (self) => {
+  //       console.log("滚动更新，进度：", self.progress);
+  //     },
+  //   },
+  // });
+  const box = gsap.utils.toArray(".box");
+
+  box.forEach((item, index) => {
+    if (index % 2 == 0) {
+      gsap.to(item, {
+        x: 200,
+        duration: 1,
+        scrollTrigger: {
+          trigger: item,
+          toggleActions: "play none none reset",
+        },
+      });
+    } else {
+      gsap.to(item, {
+        x: 200,
+        duration: 1,
+        scrollTrigger: {
+          trigger: item,
+          scrub: true,
+          pin: true, // 固定到屏幕上
+        },
+      });
+    }
+  });
 </script>
