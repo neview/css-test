@@ -4,10 +4,258 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <style></style>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      .tab_button {
+        width: 100%;
+        overflow: hidden;
+      }
+      .tabbar {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .tabbar div {
+        font-size: 12px;
+        color: black;
+        padding: 5px 15px;
+      }
+
+      .swiper {
+        width: 100%;
+        overflow: hidden;
+        margin-top: 30px;
+      }
+      .swiper_content {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        touch-action: pan-x;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .swiper_item {
+        width: 150px;
+        height: 190px;
+        border-radius: 15px;
+        flex: 0 0 auto;
+        margin-left: calc((100% - 150px) / 2);
+        color: #ffffff;
+        position: relative;
+      }
+      .swiper_item:last-child {
+        margin-right: calc((100% - 150px) / 2);
+      }
+      .item_title {
+        font-size: 14px;
+        margin-top: 10px;
+        margin-left: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .love_img {
+        width: 15px;
+        height: 15px;
+        margin-right: 10px;
+      }
+      .item_price {
+        font-size: 18px;
+        margin-top: 5px;
+        margin-left: 10px;
+      }
+      .item_info {
+        font-size: 12px;
+        margin-top: 5px;
+        margin-left: 10px;
+      }
+      .item_img {
+        width: 180px;
+        height: 130px;
+        position: absolute;
+        top: 45px;
+        left: -15px;
+      }
+      .arrow_img {
+        width: 15px;
+        height: 15px;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+      }
+    </style>
   </head>
-  <body></body>
+  <body>
+    <div class="tab_button">
+      <div class="tabbar">
+        <div>NIKE</div>
+        <div>ADDRESS</div>
+        <div>LINING</div>
+        <div>QIAODAN</div>
+        <div>HONGXIINGERKE</div>
+      </div>
+    </div>
+    <div class="swiper">
+      <div class="swiper_content">
+        <div class="swiper_item" style="background-color: #f2b8a2">
+          <div class="item_title">
+            NIKE
+            <img class="love_img" src="./image/aixin.png" alt="" />
+          </div>
+          <div class="item_price">AIR：270</div>
+          <div class="item_info">$120.00</div>
+          <img src="./image/xiezi.png" alt="" class="item_img" />
+          <img src="./image/youjiantou.png" alt="" class="arrow_img" />
+        </div>
+        <div class="swiper_item" style="background-color: #798ff2"></div>
+        <div class="swiper_item" style="background-color: #9dbaf5"></div>
+        <div class="swiper_item" style="background-color: #c479f5"></div>
+        <div class="swiper_item" style="background-color: #f191c6"></div>
+      </div>
+    </div>
+    <button onclick="clickButton()">click</button>
+  </body>
 </html>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/CustomEase.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script>
+  /*
+此辅助函数使一组元素以无缝、响应式循环的方式沿 x 轴进行动画处理。
+
+功能：
+- 使用 xPercent，因此即使宽度发生变化（例如，如果窗口大小调整），它在大多数情况下仍应有效。
+- 当每个项目向左或向右动画足够多时，它将循环回到另一侧
+- 可选地传入一个配置对象，其值包括“speed”（默认值：1，以每秒大约 100 像素的速度行进）、paused（布尔值）、repeat、reversed 和 paddingRight。
+- 返回的时间线将添加以下方法：
+- next() - 使用其返回的 timeline.tweenTo() 动画到下一个元素。您可以传入一个 vars 对象来控制持续时间、缓和等。
+- previous() - 使用其返回的 timeline.tweenTo() 动画到上一个元素。您可以传入一个 vars 对象来控制持续时间、缓动等。
+- toIndex() - 传入动画应到达的元素的从零开始的索引值，并可选择传入一个 vars 对象来控制持续时间、缓动等。始终沿最短方向行进
+- current() - 返回当前索引（如果动画正在进行中，则反映最终索引）
+- times - 时间线上每个元素到达“起始”点的时间数组。还会相应地添加一个标签，因此“label1”表示第二个元素到达起始点的时间。
+*/
+  function horizontalLoop(items, config) {
+    items = gsap.utils.toArray(items);
+    config = config || {};
+    let tl = gsap.timeline({
+        repeat: config.repeat,
+        paused: config.paused,
+        defaults: { ease: "none" },
+        onReverseComplete: () =>
+          tl.totalTime(tl.rawTime() + tl.duration() * 100),
+      }),
+      length = items.length,
+      startX = items[0].offsetLeft,
+      times = [],
+      widths = [],
+      xPercents = [],
+      curIndex = 0,
+      pixelsPerSecond = (config.speed || 1) * 100,
+      snap =
+        config.snap === false ? (v) => v : gsap.utils.snap(config.snap || 1), // some browsers shift by a pixel to accommodate flex layouts, so for example if width is 20% the first element's width might be 242px, and the next 243px, alternating back and forth. So we snap to 5 percentage points to make things look more natural
+      totalWidth,
+      curX,
+      distanceToStart,
+      distanceToLoop,
+      item,
+      i;
+    gsap.set(items, {
+      // convert "x" to "xPercent" to make things responsive, and populate the widths/xPercents Arrays to make lookups faster.
+      xPercent: (i, el) => {
+        let w = (widths[i] = parseFloat(gsap.getProperty(el, "width", "px")));
+        xPercents[i] = snap(
+          (parseFloat(gsap.getProperty(el, "x", "px")) / w) * 100 +
+            gsap.getProperty(el, "xPercent")
+        );
+        return xPercents[i];
+      },
+    });
+    gsap.set(items, { x: 0 });
+    totalWidth =
+      items[length - 1].offsetLeft +
+      (xPercents[length - 1] / 100) * widths[length - 1] -
+      startX +
+      items[length - 1].offsetWidth *
+        gsap.getProperty(items[length - 1], "scaleX") +
+      (parseFloat(config.paddingRight) || 0);
+    for (i = 0; i < length; i++) {
+      item = items[i];
+      curX = (xPercents[i] / 100) * widths[i];
+      distanceToStart = item.offsetLeft + curX - startX;
+      distanceToLoop =
+        distanceToStart + widths[i] * gsap.getProperty(item, "scaleX");
+      tl.to(
+        item,
+        {
+          xPercent: snap(((curX - distanceToLoop) / widths[i]) * 100),
+          duration: distanceToLoop / pixelsPerSecond,
+        },
+        0
+      )
+        .fromTo(
+          item,
+          {
+            xPercent: snap(
+              ((curX - distanceToLoop + totalWidth) / widths[i]) * 100
+            ),
+          },
+          {
+            xPercent: xPercents[i],
+            duration:
+              (curX - distanceToLoop + totalWidth - curX) / pixelsPerSecond,
+            immediateRender: false,
+          },
+          distanceToLoop / pixelsPerSecond
+        )
+        .add("label" + i, distanceToStart / pixelsPerSecond);
+      times[i] = distanceToStart / pixelsPerSecond;
+    }
+    function toIndex(index, vars) {
+      vars = vars || {};
+      Math.abs(index - curIndex) > length / 2 &&
+        (index += index > curIndex ? -length : length); // always go in the shortest direction
+      let newIndex = gsap.utils.wrap(0, length, index),
+        time = times[newIndex];
+      if (time > tl.time() !== index > curIndex) {
+        // if we're wrapping the timeline's playhead, make the proper adjustments
+        vars.modifiers = { time: gsap.utils.wrap(0, tl.duration()) };
+        time += tl.duration() * (index > curIndex ? 1 : -1);
+      }
+      curIndex = newIndex;
+      vars.overwrite = true;
+      return tl.tweenTo(time, vars);
+    }
+    tl.next = (vars) => toIndex(curIndex + 1, vars);
+    tl.previous = (vars) => toIndex(curIndex - 1, vars);
+    tl.current = () => curIndex;
+    tl.toIndex = (index, vars) => toIndex(index, vars);
+    tl.times = times;
+    tl.progress(1, true).progress(0, true); // pre-render for performance
+    if (config.reversed) {
+      tl.vars.onReverseComplete();
+      tl.reverse();
+    }
+    return tl;
+  }
+</script>
+<script>
+  let swiperList = gsap.utils.toArray(".swiper_item"),
+    loop = horizontalLoop(swiperList, { paused: true });
+  // let town = gsap.to(".swiper_content", {
+  //   paused: true,
+  //   translateX: "-100%",
+  //   duration: 1,
+  // });
+
+  function clickButton() {
+    loop.next({ duration: 1, ease: "power1.inOut" });
+  }
+</script>
