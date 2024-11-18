@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-color: black;
+      }
+      .content {
+        width: 100px;
+        height: 100px;
+        background-color: antiquewhite;
+        border-radius: 10px;
+        margin: auto auto;
+      }
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: rgb(242, 222, 248);
+        border-radius: 10px;
+        margin: 0 auto;
+        margin-top: -20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content" onclick="contentClick()"></div>
+    <div class="box" onclick="boxClick()"></div>
+    <!-- <button onclick="scale()">scale</button> -->
+  </body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/CustomEase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script>
+  //   let tween = gsap.timeline({
+  //     duration: 1,
+  //   });
+  //   tween.to(".content", {
+  //     width: "80%",
+  //     height: "50vh",
+  //   });
+  //   let emWidth = gsap.getProperty(".content", "width", "px");
+  function scale() {
+    // tween.play();
+    // tween.reverse();
+  }
+
+  let box = gsap.to(".box", {
+    y: 100,
+    z: -100,
+    opacity: 0,
+    duration: 1,
+    paused: true,
+  });
+
+  let content = gsap.to(".content", {
+    width: "200px",
+    height: "200px",
+    duration: 1,
+    paused: true,
+  });
+  function boxClick() {
+    box.play();
+    content.play();
+  }
+
+  function contentClick() {
+    box.reverse();
+    content.reverse();
+  }
+</script>
