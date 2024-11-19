@@ -127,7 +127,11 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/CustomEase.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js"></script>
 <script>
+  gsap.registerPlugin(ScrollToPlugin);
+  gsap.registerPlugin(Flip);
   /*
 此辅助函数使一组元素以无缝、响应式循环的方式沿 x 轴进行动画处理。
 
@@ -247,15 +251,36 @@
   }
 </script>
 <script>
-  let swiperList = gsap.utils.toArray(".swiper_item"),
-    loop = horizontalLoop(swiperList, { paused: true });
-  // let town = gsap.to(".swiper_content", {
-  //   paused: true,
-  //   translateX: "-100%",
-  //   duration: 1,
+  let swiperList = gsap.utils.toArray(".swiper_item");
+  let index = 0;
+  // let loop = horizontalLoop(swiperList, { paused: true });
+  function clickButton() {
+    // loop.next({ duration: 1, ease: "power1.inOut" });
+    gsap.to(".swiper_content", {
+      // scrollTo: ".swiper_item:nth-child(2)",
+      scrollTo: {
+        // x: ".swiper_item:nth-child(" + index + 1 + ")",
+        x: `.swiper_item:nth-child(${index + 1})`,
+        offsetX: 150,
+      },
+      duration: 1,
+    });
+    if (index == swiperList.length) {
+      index = 0;
+      return;
+    }
+    index = index + 1;
+  }
+
+  // let st = ScrollTrigger.create({
+  //   trigger: ".swiper_content",
+  //   scroller: ".tabbar",
+  //   end: "+=500",
   // });
 
-  function clickButton() {
-    loop.next({ duration: 1, ease: "power1.inOut" });
-  }
+  // // get
+  // let position = st.scroll();
+  // console.log(position);
+  // // set
+  // st.scroll(300);
 </script>
