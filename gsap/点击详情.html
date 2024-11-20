@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-color: #000;
+      }
+      .box {
+        width: 300px;
+        height: 300px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+      }
+      .box img {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <img
+        src="https://bpic.51yuansu.com/pic3/cover/04/27/21/6708049b06d8c_800.jpg?x-oss-process=image/resize,h_360,m_lfit/sharpen,100"
+        alt=""
+      />
+      <img
+        src="https://bpic.51yuansu.com/pic3/cover/04/27/21/6708049b06d8c_800.jpg?x-oss-process=image/resize,h_360,m_lfit/sharpen,100"
+        alt=""
+      />
+      <img
+        src="https://bpic.51yuansu.com/pic3/cover/04/27/11/66f3b513013c4_800.jpg?x-oss-process=image/resize,h_360,m_lfit/sharpen,100"
+        alt=""
+      />
+      <img
+        src="https://bpic.51yuansu.com/pic3/cover/04/27/17/67011cebd4016_800.jpg?x-oss-process=image/resize,h_360,m_lfit/sharpen,100"
+        alt=""
+      />
+    </div>
+
+    <div class="detail">
+      <img alt="" class="detail_img" />
+
+      <div class="detail-content">detail</div>
+    </div>
+  </body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js"></script>
+<script>
+  let arr = gsap.utils.toArray(".box img"),
+    detail = document.querySelector(".detail"),
+    detailImg = detail.querySelector(".detail_img"),
+    detailContent = detail.querySelector(".detail-content");
+
+  let activeItem;
+  gsap.set(detailContent, { yPercent: -100 });
+
+  function showDetail(item) {
+    if (activeItem) return hideDetail();
+  }
+
+  function hideDetail() {}
+</script>
