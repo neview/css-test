@@ -11,6 +11,7 @@
       }
       body {
         background-color: #000;
+        height: 100vh;
       }
       .box {
         width: 300px;
@@ -23,23 +24,46 @@
         width: 100%;
         height: 100%;
       }
+      .detail {
+        width: 100%;
+        height: 100%;
+        visibility: hidden;
+        overflow: auto;
+        position: fixed;
+        top: 10px;
+        cursor: pointer;
+        font-size: 0;
+        z-index: 999;
+      }
+      .detail_img {
+      }
+      .detail-content {
+        width: 100%;
+        height: 100%;
+        color: #000;
+        z-index: 999999;
+      }
     </style>
   </head>
   <body>
     <div class="box">
       <img
+        data-title="Super Ram"
         src="https://bpic.51yuansu.com/pic3/cover/04/27/21/6708049b06d8c_800.jpg?x-oss-process=image/resize,h_360,m_lfit/sharpen,100"
         alt=""
       />
       <img
+        data-title="Super Ram"
         src="https://bpic.51yuansu.com/pic3/cover/04/27/21/6708049b06d8c_800.jpg?x-oss-process=image/resize,h_360,m_lfit/sharpen,100"
         alt=""
       />
       <img
+        data-title="Super Ram"
         src="https://bpic.51yuansu.com/pic3/cover/04/27/11/66f3b513013c4_800.jpg?x-oss-process=image/resize,h_360,m_lfit/sharpen,100"
         alt=""
       />
       <img
+        data-title="Super Ram"
         src="https://bpic.51yuansu.com/pic3/cover/04/27/17/67011cebd4016_800.jpg?x-oss-process=image/resize,h_360,m_lfit/sharpen,100"
         alt=""
       />
@@ -48,7 +72,17 @@
     <div class="detail">
       <img alt="" class="detail_img" />
 
-      <div class="detail-content">detail</div>
+      <div class="detail-content">
+        detaildetaildetaildetaildetaildetaildetaildetaildetail
+        <div>Placeholder title</div>
+        <div>Placeholder secondary</div>
+        <div>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure cum,
+          est amet delectus, blanditiis voluptatem laborum pariatur consequatur
+          quae voluptate, nisi. Laborum adipisci iste earum distinctio, fugit,
+          quas ipsa impedit.
+        </div>
+      </div>
     </div>
   </body>
 </html>
@@ -65,7 +99,55 @@
 
   function showDetail(item) {
     if (activeItem) return hideDetail();
+
+    let onLoad = () => {
+      Flip.fit(detail, item, { scale: true, fitChild: detailImg });
+
+      const state = Flip.getState(detail);
+
+      gsap.set(detail, { clearProps: true });
+      gsap.set(detail, {
+        xPercent: 0,
+        top: "50%",
+        yPercent: -50,
+        visibility: "visible",
+        overflow: "hidden",
+      });
+      Flip.from(state, {
+        duration: 0.5,
+        ease: "power2.inOut",
+        scale: true,
+        onComplete: () => {
+          gsap.set(detail, { visibility: "auto" });
+        },
+      }).to(detailContent, { yPercent: 0 }, 0.2);
+
+      detailImg.removeEventListener("load", onLoad);
+      document.addEventListener("click", hideDetail);
+    };
+
+    // const data = item.dataset.title;
+    detailImg.addEventListener("load", onLoad);
+    detailImg.src = item.currentSrc;
+
+    gsap
+      .to(arr, {
+        opacity: 0.3,
+        stagger: { amount: 0.7, from: arr.indexOf(item) },
+      })
+      .kill(item);
+    gsap.to(".box", { backgroundColor: "#888", duration: 1, delay: 0.3 });
+    activeItem = item;
   }
 
   function hideDetail() {}
+
+  gsap.utils
+    .toArray(".box img")
+    .forEach((item) => item.addEventListener("click", () => showDetail(item)));
+
+  window.addEventListener("load", () => {
+    gsap.to(".box", { autoAlpha: 1, duration: 0.2 });
+    gsap.from(".box img", { autoAlpha: 0, yPercent: 30, duration: 0.04 });
+  });
 </script>
