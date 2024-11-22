@@ -108,12 +108,12 @@
         <div class="swiper_item" style="background-color: #f2b8a2">
           <div class="item_title">
             NIKE
-            <img class="love_img" src="./image/aixin.png" alt="" />
+            <img class="love_img" src="../image/aixin.png" alt="" />
           </div>
           <div class="item_price">AIR：270</div>
           <div class="item_info">$120.00</div>
-          <img src="./image/xiezi.png" alt="" class="item_img" />
-          <img src="./image/youjiantou.png" alt="" class="arrow_img" />
+          <img src="../image/xiezi.png" alt="" class="item_img" />
+          <img src="../image/youjiantou.png" alt="" class="arrow_img" />
         </div>
         <div class="swiper_item" style="background-color: #798ff2"></div>
         <div class="swiper_item" style="background-color: #9dbaf5"></div>
@@ -253,16 +253,33 @@
 <script>
   let swiperList = gsap.utils.toArray(".swiper_item");
   let index = 0;
+  let tl = gsap.timeline();
+
   // let loop = horizontalLoop(swiperList, { paused: true });
   function clickButton() {
     // loop.next({ duration: 1, ease: "power1.inOut" });
-    gsap.to(".swiper_content", {
-      // scrollTo: ".swiper_item:nth-child(2)",
-      scrollTo: {
-        // x: ".swiper_item:nth-child(" + index + 1 + ")",
-        x: `.swiper_item:nth-child(${index + 1})`,
-        offsetX: 150,
-      },
+    // gsap.to(".swiper_content", {
+    //   // scrollTo: ".swiper_item:nth-child(2)",
+    //   scrollTo: {
+    //     // x: ".swiper_item:nth-child(" + index + 1 + ")",
+    //     x: `.swiper_item:nth-child(${index + 1})`,
+    //     offsetX: 150,
+    //   },
+    //   duration: 1,
+    // });
+    // gsap.to(`.swiper_item:nth-child(${index + 1})`, {
+    //   scale: 1.2,
+    //   duration: 1,
+    // });
+    // tl.to(".swiper_content", {
+    //   scrollTo: {
+    //     x: `.swiper_item:nth-child(${index + 1})`,
+    //     offsetX: 150,
+    //   },
+    //   duration: 1,
+    // });
+    tl.to(`.swiper_item:nth-child(${index + 1})`, {
+      transform: "rotateY(45deg) translateX(-100px)",
       duration: 1,
     });
     if (index == swiperList.length) {

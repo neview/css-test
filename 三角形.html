@@ -5,15 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-      div {
+      /* div {
         width: 0;
         height: 0;
         border: 10px solid transparent;
         border-top: 10px solid deeppink;
+      } */
+      .box {
+        width: 100px;
+        height: 150px;
+        border-radius: 10px;
+        background-color: antiquewhite;
+        transition: all 2s;
+        transform-origin: center;
+        box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+          6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
+          12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
+          22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+          41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+          100px 100px 80px rgba(0, 0, 0, 0.07);
+        margin: 0 auto;
+        text-align: center;
+        line-height: 150px;
       }
     </style>
   </head>
   <body>
     <div></div>
+    <div class="box" onclick="clickBox()">CLICK</div>
   </body>
 </html>
+<script>
+  let box = document.querySelector(".box");
+  function clickBox() {
+    box.style.transform = "rotateY(45deg) translateX(-100px)";
+  }
+</script>

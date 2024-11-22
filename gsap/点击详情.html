@@ -32,16 +32,14 @@
         position: fixed;
         top: 10px;
         cursor: pointer;
-        font-size: 0;
         z-index: 999;
       }
       .detail_img {
+        width: 100%;
+        height: 100vw;
       }
       .detail-content {
-        width: 100%;
-        height: 100%;
-        color: #000;
-        z-index: 999999;
+        color: #ffffff;
       }
     </style>
   </head>
@@ -73,15 +71,10 @@
       <img alt="" class="detail_img" />
 
       <div class="detail-content">
-        detaildetaildetaildetaildetaildetaildetaildetaildetail
-        <div>Placeholder title</div>
-        <div>Placeholder secondary</div>
-        <div>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure cum,
-          est amet delectus, blanditiis voluptatem laborum pariatur consequatur
-          quae voluptate, nisi. Laborum adipisci iste earum distinctio, fugit,
-          quas ipsa impedit.
-        </div>
+        detaildetaildetaildetaildetaildetaildetaildetaildetail Lorem ipsum dolor
+        sit amet, consectetur adipisicing elit. Iure cum, est amet delectus,
+        blanditiis voluptatem laborum pariatur consequatur quae voluptate, nisi.
+        Laborum adipisci iste earum distinctio, fugit, quas ipsa impedit.
       </div>
     </div>
   </body>
@@ -95,7 +88,7 @@
     detailContent = detail.querySelector(".detail-content");
 
   let activeItem;
-  gsap.set(detailContent, { yPercent: -100 });
+  gsap.set(detailContent, { yPercent: 900 });
 
   function showDetail(item) {
     if (activeItem) return hideDetail();
@@ -120,7 +113,7 @@
         onComplete: () => {
           gsap.set(detail, { visibility: "auto" });
         },
-      }).to(detailContent, { yPercent: 0 }, 0.2);
+      }).to(detailContent, { yPercent: 0, duration: 1 }, 0.5);
 
       detailImg.removeEventListener("load", onLoad);
       document.addEventListener("click", hideDetail);
@@ -140,14 +133,39 @@
     activeItem = item;
   }
 
-  function hideDetail() {}
+  function hideDetail() {
+    document.removeEventListener("click", hideDetail);
+    gsap.set(detail, { overflow: "hidden" });
+
+    const state = Flip.getState(detail);
+
+    Flip.fit(detail, activeItem, { scale: true, fitChild: detailImg });
+
+    const tl = gsap.timeline();
+    tl.set(detail, { overflow: "hidden" })
+      .to(detailContent, { yPercent: 900, duration: 1 })
+      .to(arr, {
+        opacity: 1,
+        stagger: { amount: 0.7, from: arr.indexOf(activeItem) },
+      })
+      .to(".box", { backgroundColor: "#fff", gap: "5px" }, "<");
+
+    Flip.from(state, {
+      scale: true,
+      duration: 0.5,
+      delay: 0.2,
+      onInterrupt: () => tl.kill(),
+    }).set(detail, { visibility: "hidden" });
+
+    activeItem = null;
+  }
 
   gsap.utils
     .toArray(".box img")
     .forEach((item) => item.addEventListener("click", () => showDetail(item)));
 
   window.addEventListener("load", () => {
-    gsap.to(".box", { autoAlpha: 1, duration: 0.2 });
-    gsap.from(".box img", { autoAlpha: 0, yPercent: 30, duration: 0.04 });
+    gsap.to(".box", { autoAlpha: 1, duration: 0.5 });
+    gsap.from(".box img", { autoAlpha: 0, yPercent: 30, duration: 0.5 });
   });
 </script>
