@@ -262,51 +262,23 @@
   // let loop = horizontalLoop(swiperList, { paused: true });
   function clickButton() {
     // loop.next({ duration: 1, ease: "power1.inOut" });
-    // gsap.to(".swiper_content", {
-    //   // scrollTo: ".swiper_item:nth-child(2)",
-    //   scrollTo: {
-    //     // x: ".swiper_item:nth-child(" + index + 1 + ")",
-    //     x: `.swiper_item:nth-child(${index + 1})`,
-    //     offsetX: 150,
-    //   },
-    //   duration: 1,
-    // });
-    // gsap.to(`.swiper_item:nth-child(${index + 1})`, {
-    //   scale: 1.2,
-    //   duration: 1,
-    // });
-    // tl.to(".swiper_content", {
-    //   scrollTo: {
-    //     x: `.swiper_item:nth-child(${index + 1})`,
-    //     offsetX: 150,
-    //   },
-    //   duration: 1,
-    // });
     tl3.set(swiperList[index + 1], {
       transform: "translate3d(0, 0, -200px)",
     });
-    tl.to(swiperList[index], {
-      transform: "translate3d(-60px, 0, -100px) rotate3d(0, 1, 0, 30deg)",
-      duration: 1,
-      onLeave: () => {
-        // gsap.set(swiperList[index], {
-        //   transform: "translate3d(0, 0, 0) rotate3d(0, 0, 0, 0)",
-        // });
+    tl.fromTo(
+      swiperList[index],
+      {
+        transform: "translate3d(0, 0, 0) rotate3d(0, 0, 0, 0)", // 初始状态
       },
-    });
+      {
+        transform: "translate3d(-60px, 0, -100px) rotate3d(0, 1, 0, 30deg)", // 目标状态
+        duration: 1,
+        repeat: 1,
+        yoyo: true,
+      }
+    );
 
     tl3.to(swiperList[index + 1], {
-      // keyframes: {
-      //   "0%": {
-      //     transform: "translate3d(0, 0, -200px) rotate3d(0, 1, 0, -30deg)",
-      //   },
-      //   "90%": {
-      //     transform: "translate3d(0, 0, 0) rotate3d(0, 1, 0, 15deg)",
-      //   },
-      //   "100%": {
-      //     transform: "translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg)",
-      //   },
-      // },
       keyframes: [
         { transform: "translate3d(0, 0, -200px) rotate3d(0, 1, 0, -30deg)" },
         { transform: "translate3d(0, 0, 0) rotate3d(0, 1, 0, -30deg)" },
@@ -322,7 +294,7 @@
     tl2.to(".swiper_content", {
       scrollTo: {
         x: `.swiper_item:nth-child(${index + 1})`,
-        offsetX: -150,
+        offsetX: -180,
       },
       duration: 1.2,
     });
@@ -344,4 +316,7 @@
   // console.log(position);
   // // set
   // st.scroll(300);
+</script>
+<script>
+  // 手指滑动
 </script>
