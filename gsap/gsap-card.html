@@ -41,6 +41,8 @@
         touch-action: pan-x;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
+        transform-style: preserve-3d;
+        perspective: 1000px;
       }
       .swiper_item {
         width: 150px;
@@ -254,6 +256,8 @@
   let swiperList = gsap.utils.toArray(".swiper_item");
   let index = 0;
   let tl = gsap.timeline();
+  let tl2 = gsap.timeline();
+  let tl3 = gsap.timeline();
 
   // let loop = horizontalLoop(swiperList, { paused: true });
   function clickButton() {
@@ -278,9 +282,49 @@
     //   },
     //   duration: 1,
     // });
-    tl.to(`.swiper_item:nth-child(${index + 1})`, {
-      transform: "rotateY(45deg) translateX(-100px)",
+    tl3.set(swiperList[index + 1], {
+      transform: "translate3d(0, 0, -200px)",
+    });
+    tl.to(swiperList[index], {
+      transform: "translate3d(-60px, 0, -100px) rotate3d(0, 1, 0, 30deg)",
       duration: 1,
+      onLeave: () => {
+        // gsap.set(swiperList[index], {
+        //   transform: "translate3d(0, 0, 0) rotate3d(0, 0, 0, 0)",
+        // });
+      },
+    });
+
+    tl3.to(swiperList[index + 1], {
+      // keyframes: {
+      //   "0%": {
+      //     transform: "translate3d(0, 0, -200px) rotate3d(0, 1, 0, -30deg)",
+      //   },
+      //   "90%": {
+      //     transform: "translate3d(0, 0, 0) rotate3d(0, 1, 0, 15deg)",
+      //   },
+      //   "100%": {
+      //     transform: "translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg)",
+      //   },
+      // },
+      keyframes: [
+        { transform: "translate3d(0, 0, -200px) rotate3d(0, 1, 0, -30deg)" },
+        { transform: "translate3d(0, 0, 0) rotate3d(0, 1, 0, -30deg)" },
+        { transform: "translate3d(0, 0, 0) rotate3d(0, 1, 0, 20deg)" },
+      ],
+      duration: 1.2,
+    });
+    tl3.to(swiperList[index + 1], {
+      transform: "translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg)",
+      duration: 0.5,
+    });
+
+    tl2.to(".swiper_content", {
+      scrollTo: {
+        x: `.swiper_item:nth-child(${index + 1})`,
+        offsetX: -150,
+      },
+      duration: 1.2,
     });
     if (index == swiperList.length) {
       index = 0;

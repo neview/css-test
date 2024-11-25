@@ -11,33 +11,69 @@
         border: 10px solid transparent;
         border-top: 10px solid deeppink;
       } */
+      body {
+        background-color: black;
+        transform-style: preserve-3d;
+        perspective: 1000px;
+      }
       .box {
-        width: 100px;
-        height: 150px;
+        width: 150px;
+        height: 130px;
         border-radius: 10px;
-        background-color: antiquewhite;
+        background-color: rgb(207, 206, 204);
         transition: all 2s;
-        transform-origin: center;
-        box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+        transform-origin: left left center;
+        /* box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
           6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
           12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
           22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
           41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
-          100px 100px 80px rgba(0, 0, 0, 0.07);
+          100px 100px 80px rgba(0, 0, 0, 0.07); */
         margin: 0 auto;
         text-align: center;
         line-height: 150px;
+        perspective: 1000px;
+      }
+      .box2 {
+        width: 150px;
+        height: 130px;
+        border-radius: 10px;
+        background-color: rgb(248, 179, 231);
+        margin: 20px auto;
+        transform: translate3d(0, 0, -100px) rotate3d(0, 1, 0, -50deg);
+      }
+
+      .box2Show {
+        animation: leftbox2 ease-in-out 1.5s;
+        animation-fill-mode: forwards;
+      }
+      @keyframes leftbox2 {
+        0% {
+          transform: translate3d(0, 0, -100px) rotate3d(0, 1, 0, -50deg);
+        }
+        80% {
+          transform: translate3d(-100px, 0, 0) rotate3d(0, 1, 0, 30deg);
+        }
+        100% {
+          transform: translate3d(-100px, 0, 0) rotate3d(0, 1, 0, 0deg);
+        }
       }
     </style>
   </head>
   <body>
     <div></div>
-    <div class="box" onclick="clickBox()">CLICK</div>
+    <div class="box" onclick="clickBox()"></div>
+    <div class="box2" onclick="clickBox2()"></div>
   </body>
 </html>
 <script>
   let box = document.querySelector(".box");
+  let box2 = document.querySelector(".box2");
   function clickBox() {
-    box.style.transform = "rotateY(45deg) translateX(-100px)";
+    box.style.transform = `translate3d(-60px, 0, -100px) rotate3d(0, 1, 0, 20deg)`;
+  }
+
+  function clickBox2() {
+    box2.classList.add("box2Show");
   }
 </script>
