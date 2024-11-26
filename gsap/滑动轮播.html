@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-color: black;
+      }
+      .swiper {
+        width: 100%;
+        overflow: hidden;
+      }
+      .swiper_content {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+      }
+      .swiper_item {
+        width: 150px;
+        height: 180px;
+        border-radius: 10px;
+        background-color: antiquewhite;
+        margin-left: 150px;
+        flex: 0 0 auto;
+      }
+      .swiper_item:last-child {
+        margin-right: 150px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="swiper">
+      <div class="swiper_content">
+        <div class="swiper_item"></div>
+        <div class="swiper_item"></div>
+        <div class="swiper_item"></div>
+      </div>
+    </div>
+  </body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/CustomEase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+</script>
+<script>
+  //   let swiperContent = document.querySelector(".swiper_content");
+  //   swiperContent.addEventListener("touchstart", (event) => {
+  //     console.log("Touch Start:");
+  //   });
+
+  //   swiperContent.addEventListener("touchmove", (event) => {
+  //     console.log("Touch Move:");
+  //   });
+
+  //   swiperContent.addEventListener("touchend", (event) => {
+  //     console.log("Touch End:");
+  //   });
+
+  //   swiperContent.addEventListener("touchcancel", (event) => {
+  //     console.log("Touch Cancel");
+  //   });
+  let items = gsap.utils.toArray(".swiper_item");
+  ScrollTrigger.create({
+    trigger: ".swiper_content",
+    endTrigger: items[items.length - 1],
+  });
+</script>
