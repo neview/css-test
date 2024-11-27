@@ -21,7 +21,6 @@
         display: flex;
         align-items: center;
         flex-wrap: nowrap;
-        overflow-x: auto;
       }
       .swiper_item {
         width: 150px;
@@ -55,25 +54,69 @@
   gsap.registerPlugin(ScrollTrigger);
 </script>
 <script>
-  //   let swiperContent = document.querySelector(".swiper_content");
-  //   swiperContent.addEventListener("touchstart", (event) => {
-  //     console.log("Touch Start:");
-  //   });
-
-  //   swiperContent.addEventListener("touchmove", (event) => {
-  //     console.log("Touch Move:");
-  //   });
-
-  //   swiperContent.addEventListener("touchend", (event) => {
-  //     console.log("Touch End:");
-  //   });
-
-  //   swiperContent.addEventListener("touchcancel", (event) => {
-  //     console.log("Touch Cancel");
-  //   });
+  let swiperContent = document.querySelector(".swiper_content");
+  let isTouching = false;
+  let startX, lastX;
   let items = gsap.utils.toArray(".swiper_item");
-  ScrollTrigger.create({
-    trigger: ".swiper_content",
-    endTrigger: items[items.length - 1],
+  let totalItems = items.length;
+  let orientations = 0;
+  let selectIndex = 0;
+
+  // swiperContent.addEventListener("scroll", (e) => {});
+
+  swiperContent.addEventListener("touchstart", (e) => {
+    isTouching = true;
+    startX = e.touches ? e.touches[0].clientX : e.clientX;
+    lastX = startX;
   });
+
+  swiperContent.addEventListener("touchmove", (e) => {
+    if (!isTouching) return;
+
+    currentX = e.touches ? e.touches[0].clientX : e.clientX;
+    let deltaX = currentX - lastX;
+    deltaX > 0 ? (orientations = 1) : (orientations = -1);
+    // swiperContent.style.transform = `translateX(${deltaX}px)`;
+  });
+
+  swiperContent.addEventListener("touchend", (e) => {
+    isTouching = false;
+    if (selectIndex === 0) return;
+    if (orientations === 1) {
+      // right
+      motion(selectIndex - 1);
+    }
+    if (orientations === -1) {
+      // left
+      motion(selectIndex + 1);
+    }
+  });
+
+  function motion(index) {
+    console.log("index", index);
+    console.log("x:", gsap.getProperty(items[index], "marginLeft"));
+    gsap.to(".swiper_content", {
+      x: 300,
+      duration: 1.2,
+      onComplete: () => {
+        selectIndex = index;
+      },
+    });
+  }
+
+  // swiperContent.addEventListener("touchcancel", (event) => {
+  //   console.log("Touch Cancel");
+  // });
+
+  // let swiperContent = document.querySelector(".swiper_content");
+  // ScrollTrigger.create({
+  //   trigger: ".swiper_content",
+  //   start: "left left",
+  //   end: "right right",
+  //   horizontal: true,
+  //   scrub: true,
+  //   onUpdate: (self) => {
+  //     console.log("Horizontal progress:", self.progress);
+  //   },
+  // });
 </script>
