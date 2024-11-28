@@ -32,6 +32,7 @@
       }
       .swiper_item:last-child {
         margin-right: 150px;
+        background-color: aquamarine !important;
       }
     </style>
   </head>
@@ -61,7 +62,7 @@
   let totalItems = items.length;
   let orientations = 0;
   let selectIndex = 0;
-
+  let to = gsap.timeline();
   // swiperContent.addEventListener("scroll", (e) => {});
 
   swiperContent.addEventListener("touchstart", (e) => {
@@ -81,23 +82,29 @@
 
   swiperContent.addEventListener("touchend", (e) => {
     isTouching = false;
-    if (selectIndex === 0) return;
+    if (selectIndex === totalItems - 1) return;
     if (orientations === 1) {
-      // right
-      motion(selectIndex - 1);
+      motion("left");
     }
     if (orientations === -1) {
-      // left
-      motion(selectIndex + 1);
+      motion("right");
     }
   });
 
-  function motion(index) {
-    console.log("index", index);
-    console.log("x:", gsap.getProperty(items[index], "marginLeft"));
-    gsap.to(".swiper_content", {
-      x: 300,
-      duration: 1.2,
+  function motion(type) {
+    let itemWidth = gsap.getProperty(items[selectIndex + 1], "width") * 2;
+    let index = 0;
+    if (type === "left") {
+      index = selectIndex + 1;
+      // itemWidth = -itemWidth;
+    } else {
+      index = selectIndex - 1;
+    }
+    console.log("itemWidth * index", itemWidth * index);
+    to.to(".swiper_content", {
+      x: itemWidth * index,
+      duration: 1,
+      ease: "power1.out",
       onComplete: () => {
         selectIndex = index;
       },
