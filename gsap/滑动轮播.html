@@ -21,6 +21,12 @@
         display: flex;
         align-items: center;
         flex-wrap: nowrap;
+        overflow-x: scroll;
+        touch-action: pan-x;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        transform-style: preserve-3d;
+        perspective: 1000px;
       }
       .swiper_item {
         width: 150px;
@@ -39,9 +45,9 @@
   <body>
     <div class="swiper">
       <div class="swiper_content">
-        <div class="swiper_item"></div>
-        <div class="swiper_item"></div>
-        <div class="swiper_item"></div>
+        <div class="swiper_item" data-index="0"></div>
+        <div class="swiper_item" data-index="1"></div>
+        <div class="swiper_item" data-index="2"></div>
       </div>
     </div>
   </body>
@@ -54,7 +60,7 @@
 <script>
   gsap.registerPlugin(ScrollTrigger);
 </script>
-<script>
+<!-- <script>
   let swiperContent = document.querySelector(".swiper_content");
   let isTouching = false;
   let startX, lastX;
@@ -62,6 +68,7 @@
   let totalItems = items.length;
   let orientations = 0;
   let selectIndex = 0;
+  let gap = 0;
   let to = gsap.timeline();
   // swiperContent.addEventListener("scroll", (e) => {});
 
@@ -81,8 +88,6 @@
   });
 
   swiperContent.addEventListener("touchend", (e) => {
-    isTouching = false;
-    if (selectIndex === totalItems - 1) return;
     if (orientations === 1) {
       motion("left");
     }
@@ -94,19 +99,14 @@
   function motion(type) {
     let itemWidth = gsap.getProperty(items[selectIndex + 1], "width") * 2;
     let index = 0;
-    if (type === "left") {
-      index = selectIndex + 1;
-      // itemWidth = -itemWidth;
-    } else {
-      index = selectIndex - 1;
-    }
-    console.log("itemWidth * index", itemWidth * index);
     to.to(".swiper_content", {
-      x: itemWidth * index,
-      duration: 1,
+      x: type === "left" ? gap + itemWidth : gap - itemWidth,
+      duration: 0.6,
       ease: "power1.out",
       onComplete: () => {
-        selectIndex = index;
+        type === "left" ? (gap = gap + itemWidth) : (gap = gap - itemWidth);
+        console.log("gap", gap);
+        isTouching = false;
       },
     });
   }
@@ -124,6 +124,123 @@
   //   scrub: true,
   //   onUpdate: (self) => {
   //     console.log("Horizontal progress:", self.progress);
+  //   },
+  // });
+</script> -->
+<script>
+  let swiperContent = document.querySelector(".swiper_content");
+  let items = gsap.utils.toArray(".swiper_item");
+  let isTouching = false;
+  let startX,
+    lastX,
+    orientations,
+    index = 0;
+  let tl2 = gsap.timeline();
+  let tl3 = gsap.timeline();
+  let tl4 = gsap.timeline();
+
+  swiperContent.addEventListener("touchstart", (e) => {
+    isTouching = true;
+    startX = e.touches ? e.touches[0].clientX : e.clientX;
+    lastX = startX;
+  });
+
+  swiperContent.addEventListener("touchmove", (e) => {
+    if (!isTouching) return;
+
+    currentX = e.touches ? e.touches[0].clientX : e.clientX;
+    let deltaX = currentX - lastX;
+    deltaX > 0 ? (orientations = 1) : (orientations = -1);
+  });
+
+  swiperContent.addEventListener("touchend", (e) => {
+    if (orientations === 1) {
+      select(index - 1);
+      index = index - 1;
+    }
+    if (orientations === -1) {
+      select(index + 1);
+      index = index + 1;
+    }
+  });
+
+  function select(index) {
+    tl2.to(".swiper_content", {
+      scrollTo: {
+        x: items[index],
+        offsetX: 110,
+      },
+      duration: 1,
+    });
+    tl3.set(items[index], {
+      transform: "translate3d(0, 0, -200px)",
+    });
+    tl4.fromTo(
+      items[index - 1],
+      {
+        transform: "translate3d(0, 0, 0) rotate3d(0, 0, 0, 0)", // 初始状态
+      },
+      {
+        transform: "translate3d(-60px, 0, -100px) rotate3d(0, 1, 0, 30deg)", // 目标状态
+        duration: 1,
+        repeat: 1,
+        yoyo: true,
+      }
+    );
+
+    tl3.to(items[index], {
+      keyframes: [
+        { transform: "translate3d(0, 0, -200px) rotate3d(0, 1, 0, -30deg)" },
+        { transform: "translate3d(0, 0, 0) rotate3d(0, 1, 0, -30deg)" },
+        { transform: "translate3d(0, 0, 0) rotate3d(0, 1, 0, 20deg)" },
+      ],
+      duration: 1.2,
+    });
+    tl3.to(items[index], {
+      transform: "translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg)",
+      duration: 0.5,
+    });
+  }
+  // ScrollTrigger.create({
+  //   trigger: ".swiper_content",
+  //   scroller: ".swiper_content",
+  //   horizontal: true,
+  //   start: "left left",
+  //   scrub: true,
+  //   invalidateOnRefresh: true,
+  //   animation: gsap.to(items[0], { scale: 0.5, duration: 3 }),
+  //   onUpdate: (self) => {
+  //     // console.log("滚动", self);
+  //     // let a = ScrollTrigger.positionInViewport(items[0], "center", true);
+  //   },
+  // });
+
+  // let a = tl.scroll();
+
+  // let tween = gsap.to(items[0], {
+  //     scale: 0.2,
+  //     duration: 3,
+  //     paused: true,
+  //   }),
+  //   st = ScrollTrigger.create({
+  //     trigger: ".swiper_content",
+  //     start: "right right",
+  //     animation: tween,
+  //   });
+  // let tween = gsap.to(items[0], {
+  //   y: 100,
+  //   immediateRender: true,
+  //   lazy: true,
+  //   // id: "example",
+  //   scrollTrigger: ".swiper_content",
+  // });
+
+  // ScrollTrigger.batch(".swiper_content", {
+  //   onEnter: (elements, triggers) => {
+  //     console.log(elements.length, "elements entered");
+  //   },
+  //   onLeave: (elements, triggers) => {
+  //     console.log(elements.length, "elements left");
   //   },
   // });
 </script>
