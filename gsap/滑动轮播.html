@@ -21,7 +21,7 @@
         display: flex;
         align-items: center;
         flex-wrap: nowrap;
-        overflow-x: scroll;
+        /* overflow-x: scroll; */
         touch-action: pan-x;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
@@ -50,6 +50,7 @@
         <div class="swiper_item" data-index="2"></div>
       </div>
     </div>
+    <div class="num" style="color: aliceblue"></div>
   </body>
 </html>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
@@ -134,54 +135,74 @@
   let startX,
     lastX,
     orientations,
+    gapNum,
     index = 0;
   let tl2 = gsap.timeline();
   let tl3 = gsap.timeline();
   let tl4 = gsap.timeline();
+  let num = document.getElementsByClassName("num")[0];
 
   swiperContent.addEventListener("touchstart", (e) => {
+    e.preventDefault();
     isTouching = true;
+    swiperContent.style.transition = "all 0.1s";
     startX = e.touches ? e.touches[0].clientX : e.clientX;
     lastX = startX;
   });
 
   swiperContent.addEventListener("touchmove", (e) => {
+    e.preventDefault();
     if (!isTouching) return;
 
     currentX = e.touches ? e.touches[0].clientX : e.clientX;
     let deltaX = currentX - lastX;
     deltaX > 0 ? (orientations = 1) : (orientations = -1);
+    gapNum = deltaX;
+    num.innerHTML = gapNum;
+    swiperContent.style.transform = `translateX(${gapNum}px)`;
   });
 
   swiperContent.addEventListener("touchend", (e) => {
+    e.preventDefault();
+    if (Math.abs(gapNum) < 200) {
+      swiperContent.style.transition = "all 0.8s";
+      swiperContent.style.transform = `translateX(0px)`;
+      return;
+    }
+    if (index >= items.length) {
+      return;
+    }
     if (orientations === 1) {
-      select(index - 1);
-      index = index - 1;
+      // select(index - 1);
+      // index = index - 1;
+
+      select2(index);
     }
     if (orientations === -1) {
-      select(index + 1);
-      index = index + 1;
+      // select(index + 1);
+      // index = index + 1;
+
+      select2(index);
     }
   });
 
+  function select2(index) {}
+
   function select(index) {
-    tl2.to(".swiper_content", {
-      scrollTo: {
-        x: items[index],
-        offsetX: 110,
-      },
-      duration: 1,
-    });
-    tl3.set(items[index], {
-      transform: "translate3d(0, 0, -200px)",
-    });
+    // tl2.to(".swiper_content", {
+    //   scrollTo: {
+    //     x: items[index],
+    //     offsetX: 110,
+    //   },
+    //   duration: 1,
+    // });
     tl4.fromTo(
       items[index - 1],
       {
         transform: "translate3d(0, 0, 0) rotate3d(0, 0, 0, 0)", // 初始状态
       },
       {
-        transform: "translate3d(-60px, 0, -100px) rotate3d(0, 1, 0, 30deg)", // 目标状态
+        transform: "translate3d(-60px, 0, -150px) rotate3d(0, 1, 0, 40deg)", // 目标状态
         duration: 1,
         repeat: 1,
         yoyo: true,
@@ -190,9 +211,12 @@
 
     tl3.to(items[index], {
       keyframes: [
-        { transform: "translate3d(0, 0, -200px) rotate3d(0, 1, 0, -30deg)" },
+        {
+          transform: "translate3d(0, 0, -100px)",
+        },
+        { transform: "translate3d(0, 0, -100px) rotate3d(0, 1, 0, -30deg)" },
         { transform: "translate3d(0, 0, 0) rotate3d(0, 1, 0, -30deg)" },
-        { transform: "translate3d(0, 0, 0) rotate3d(0, 1, 0, 20deg)" },
+        { transform: "translate3d(0, 0, 0) rotate3d(0, 1, 0, 10deg)" },
       ],
       duration: 1.2,
     });
