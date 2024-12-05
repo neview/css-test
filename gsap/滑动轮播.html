@@ -50,7 +50,7 @@
         <div class="swiper_item" data-index="2"></div>
       </div>
     </div>
-    <div class="num" style="color: aliceblue"></div>
+    <!-- <div class="num" style="color: aliceblue"></div> -->
   </body>
 </html>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
@@ -157,9 +157,9 @@
     currentX = e.touches ? e.touches[0].clientX : e.clientX;
     let deltaX = currentX - lastX;
     deltaX > 0 ? (orientations = 1) : (orientations = -1);
-    gapNum = deltaX;
-    num.innerHTML = gapNum;
-    swiperContent.style.transform = `translateX(${gapNum}px)`;
+    // gapNum = deltaX;
+    // num.innerHTML = gapNum;
+    swiperContent.style.transform = `translateX(${deltaX}px)`;
   });
 
   swiperContent.addEventListener("touchend", (e) => {
@@ -169,19 +169,21 @@
       swiperContent.style.transform = `translateX(0px)`;
       return;
     }
-    if (index >= items.length) {
+    if (index >= items.length || (gapNum < 0 && index == 0)) {
       return;
     }
     if (orientations === 1) {
       // select(index - 1);
       // index = index - 1;
 
+      index = index - 1;
       select2(index);
     }
     if (orientations === -1) {
       // select(index + 1);
       // index = index + 1;
 
+      index = index + 1;
       select2(index);
     }
   });
@@ -225,6 +227,7 @@
       duration: 0.5,
     });
   }
+
   // ScrollTrigger.create({
   //   trigger: ".swiper_content",
   //   scroller: ".swiper_content",
