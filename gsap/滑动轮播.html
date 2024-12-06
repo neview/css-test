@@ -50,7 +50,7 @@
         <div class="swiper_item" data-index="2"></div>
       </div>
     </div>
-    <!-- <div class="num" style="color: aliceblue"></div> -->
+    <!-- <div class="num" style="color: aliceblue" ></div> -->
   </body>
 </html>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
@@ -157,19 +157,20 @@
     currentX = e.touches ? e.touches[0].clientX : e.clientX;
     let deltaX = currentX - lastX;
     deltaX > 0 ? (orientations = 1) : (orientations = -1);
-    // gapNum = deltaX;
+    gapNum = deltaX;
     // num.innerHTML = gapNum;
     swiperContent.style.transform = `translateX(${deltaX}px)`;
   });
 
   swiperContent.addEventListener("touchend", (e) => {
     e.preventDefault();
-    if (Math.abs(gapNum) < 200) {
+    if (Math.abs(gapNum) < 150) {
       swiperContent.style.transition = "all 0.8s";
       swiperContent.style.transform = `translateX(0px)`;
       return;
     }
-    if (index >= items.length || (gapNum < 0 && index == 0)) {
+    // if (index >= items.length || (gapNum < 0 && index == 0)) {
+    if (index >= items.length) {
       return;
     }
     if (orientations === 1) {
@@ -187,10 +188,18 @@
       select2(index);
     }
   });
-
-  function select2(index) {}
+  function select2(index) {
+    tl2.to(".swiper_content", {
+      scrollTo: {
+        x: 150,
+        offsetX: 110,
+      },
+      duration: 1,
+    });
+  }
 
   function select(index) {
+    // 移动到指定元素
     // tl2.to(".swiper_content", {
     //   scrollTo: {
     //     x: items[index],
