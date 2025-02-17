@@ -40,6 +40,9 @@
         margin-right: 150px;
         background-color: aquamarine !important;
       }
+      .butt {
+        color: #ffffff;
+      }
     </style>
   </head>
   <body>
@@ -51,8 +54,40 @@
       </div>
     </div>
     <!-- <div class="num" style="color: aliceblue" ></div> -->
+    <div class="butt" onclick="aaa()">111</div>
   </body>
 </html>
+<script
+  crossorigin="anonymous"
+  src="http://39.100.77.85:6752/page-spy/index.min.js"
+></script>
+
+<script
+  crossorigin="anonymous"
+  src="http://39.100.77.85:6752/plugin/data-harbor/index.min.js"
+></script>
+<script
+  crossorigin="anonymous"
+  src="http://39.100.77.85:6752/plugin/rrweb/index.min.js"
+></script>
+<script>
+  window.$harbor = new DataHarborPlugin();
+  window.$rrweb = new RRWebPlugin();
+
+  [window.$harbor, window.$rrweb].forEach((p) => {
+    PageSpy.registerPlugin(p);
+  });
+
+  window.$pageSpy = new PageSpy({
+    title: "aa",
+    useSecret: true,
+    autoRender: false,
+  });
+  function aaa() {
+    console.log("输出");
+    window.$pageSpy.render();
+  }
+</script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/CustomEase.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="shortcut icon" href="https://yzf.qq.com/favicon.ico" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>云智服</title>
+    <style>
+      body {
+        background: #ebedf3;
+      }
+
+      .js-mobile .main-inner {
+        height: 100%;
+      }
+
+      .js-mobile .m-chat {
+        height: 100%;
+      }
+
+      .js-mobile .chat-scroll {
+        height: 100%;
+        overflow: auto;
+      }
+
+      .js-mobile .chat-ft {
+        position: absolute;
+      }
+
+      .js-mobile .chat-toolbar {
+        height: 51px;
+      }
+
+      img.emoji {
+        width: 24px;
+      }
+
+      @media (min-height: 600px) and (min-width: 1000px) {
+        .m-chat .chat-hd ~ .chat-scroll {
+          padding-top: 0;
+          max-height: calc(100vh - 316px);
+        }
+      }
+    </style>
+    <link href="./main.84535394.css" rel="stylesheet" />
+  </head>
+  <body style="display: none">
+    <div class="main">
+      <div class="main-inner">
+        <div class="m-chat" style="display: flex; flex-direction: column">
+          <div class="chat-hd">
+            <h1 class="title"></h1>
+            <p class="desc"></p>
+            <div class="iconbox">
+              <i class="iconfont icon-voice icon-voice-open"></i>
+              <i class="iconfont icon-arrow-down"></i>
+            </div>
+          </div>
+          <div
+            class="chat-scroll"
+            style="
+              flex: 1;
+              transition: none;
+              -webkit-overflow-scrolling: touch;
+              padding-bottom: 0;
+            "
+          >
+            <div class="minscroll">
+              <div class="chat-bd">
+                <div class="inner" id="messagePanel"></div>
+              </div>
+              <div class="m-prompt" style="display: none">
+                <div class="m-prompt__bd">
+                  <div class="m-prompt__image">
+                    <img
+                      class="prompt-image"
+                      src="./prompt-qywg-pc.8d645285.png"
+                      alt=""
+                    />
+                  </div>
+                  <div class="m-prompt__txt">该企业使用违规</div>
+                  <div class="m-prompt__desc">
+                    腾讯云智服已终止为其提供技术支持和服务，如您有财产损失，建议您报警寻求司法机关帮助，我们会全力配合并提供信息。
+                  </div>
+                  <div class="m-prompt__btnWrap" style="display: none">
+                    <div class="m-prompt__btn">查看聊天记录</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="chat-ft" style="transition: none; position: relative">
+            <div class="chat-toolbar">
+              <div class="inputone">
+                <input
+                  placeholder=""
+                  class="chat-input"
+                  style="ime-mode: inactive"
+                  autocapitalize="off"
+                />
+              </div>
+              <div class="inputtwo">
+                <textarea placeholder="" class="chat-input"></textarea>
+              </div>
+              <div class="operat">
+                <i class="iconfont icon-exp"></i>
+                <i class="iconfont icon-add"></i>
+                <i class="iconfont icon-photo icon-photo-outer"></i>
+              </div>
+              <a href="javascript:;" class="chat-btn color-custom">发送</a>
+              <div class="tool-view">
+                <div class="list">
+                  <div class="item">
+                    <i class="iconfont icon-photo icon-photo-inner"></i>
+                    <div class="desc">照片</div>
+                  </div>
+                </div>
+                <div class="emoticon" style="transition: none"></div>
+              </div>
+            </div>
+          </div>
+          <div
+            id="divQQNews"
+            style="
+              background: #f6f6f6;
+              position: absolute;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              width: 100%;
+              display: none;
+            "
+          ></div>
+        </div>
+      </div>
+    </div>
+    <script src="https://pingjs.qq.com/tcss.ping.https.js"></script>
+    <script>
+      "function" == typeof pgvMain && pgvMain();
+    </script>
+    <script type="text/javascript" src="./main.f38665d2.js"></script>
+  </body>
+</html>

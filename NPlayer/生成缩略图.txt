@@ -1,0 +1,1 @@
+ffmpeg -i ./280443.mp4 -vf "fps=1,scale=160x90,tile=5x5" -vsync vfr M%d.jpg
