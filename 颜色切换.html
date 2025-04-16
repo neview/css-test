@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: rgb(185, 185, 185);
+      }
+      .box {
+        margin: auto auto;
+        border-radius: 5px;
+        width: 150px;
+        height: 30px;
+        background-color: rgb(17, 16, 16);
+        transition: all 0.5s ease-in-out;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box" onclick="clickBox()"></div>
+  </body>
+</html>
+<script>
+  const box = document.getElementsByClassName("box")[0];
+  function clickBox() {
+    const currentColor = getComputedStyle(box).backgroundColor;
+    if (currentColor === "rgb(255, 255, 255)") {
+      box.style.backgroundColor = "#000000";
+      box.style.width = "150px";
+    } else {
+      box.style.backgroundColor = "#FFFFFF";
+      box.style.width = "300px";
+    }
+  }
+</script>

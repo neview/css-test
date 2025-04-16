@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      .list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 10px;
+        img {
+          width: 100%;
+          height: 250px;
+        }
+      }
+      .detail {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        visibility: hidden;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #ffffff;
+      }
+      .detail_img {
+        width: 100%;
+        height: 500px;
+      }
+      .detail_tips {
+        height: 0;
+        visibility: hidden;
+        background-color: pink;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="list">
+      <img
+        src="https://gw.alicdn.com/tfscom/i3/O1CN01TYc1QI1UW2i6wgeBU_!!6000000002524-0-alipicbeacon.jpg_800x800.jpg"
+        alt=""
+      />
+      <img
+        src="https://gw.alicdn.com/tfscom/i1/O1CN016jZPyJ1rmkJ17f4XD_!!6000000005674-0-alipicbeacon.jpg_800x800.jpg"
+        alt=""
+      />
+      <img
+        src="https://gw.alicdn.com/tfscom/i2/O1CN01PKpFq91I8QtQOZ8Ja_!!6000000000848-0-alipicbeacon.jpg_800x800.jpg"
+        alt=""
+      />
+      <img
+        src="https://gw.alicdn.com/tfscom/i2/O1CN01iUz3m41Td5BjN7oVs_!!6000000002404-0-alipicbeacon.jpg_800x800.jpg"
+        alt=""
+      />
+    </div>
+    <div class="detail">
+      <img src="" alt="" class="detail_img" />
+      <div class="detail_tips">
+        详情信息详情信息详情信息详情信息详情信息详情信息详情信息详情信息详情信息详情信息详情信息详情信息详情信息详情信息
+        详情信息详情信息详情信息详情信息详情信息详情信息详情信息详情信息详情信息详情信息详情信息详情信息详情信息详情信息详情信息详情信息详情信息详情信息详情信息详情信息详情信息
+      </div>
+    </div>
+  </body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js"></script>
+<script>
+  let list = gsap.utils.toArray(".list img"),
+    detail = document.querySelector(".detail"),
+    detailImg = detail.querySelector(".detail_img"),
+    detailContent = detail.querySelector(".detail_tips");
+
+  let activeItem;
+  //   gsap.set(detailContent, { yPercent: 900 });
+
+  function showDetail(item) {
+    if (activeItem) return hideDetail();
+
+    let onLoad = () => {
+      Flip.fit(detail, item, { scale: true, fitChild: detailImg });
+
+      const state = Flip.getState(detail);
+      gsap.set(detail, { clearProps: true });
+      gsap.set(detail, {
+        xPercent: 0,
+        top: "50%",
+        yPercent: -50,
+        visibility: "visible",
+        overflow: "hidden",
+      });
+
+      gsap.set(detailContent, {
+        height: 0,
+        backgroundColor: "pink",
+        visibility: "auto",
+      });
+
+      Flip.from(state, {
+        scale: true,
+        ease: "power2.inOut",
+        duration: 2,
+        onComplete: () => {
+          gsap.set([detail, detailContent], { visibility: "auto" });
+          gsap.to(detailContent, {
+            height: "100%",
+            duration: 2,
+          });
+        },
+      });
+      //   .to(detailContent, { height: "100%", duration: 2 });
+
+      detailImg.removeEventListener("load", onLoad);
+      document.addEventListener("click", hideDetail);
+    };
+
+    detailImg.addEventListener("load", onLoad);
+    detailImg.src = item.currentSrc;
+
+    activeItem = item;
+  }
+
+  function hideDetail() {
+    document.removeEventListener("click", hideDetail);
+
+    gsap.set(detail, { overflow: "hidden" });
+    const state = Flip.getState(detail);
+    Flip.fit(detail, activeItem, { scale: true, fitChild: detailImg });
+
+    const tl = gsap.timeline();
+    tl.to(detailContent, {
+      height: 0,
+    });
+
+    Flip.from(state, {
+      scale: true,
+      duration: 0.5,
+      delay: 0.2,
+    }).set([detail, detailContent], { visibility: "hidden" });
+    activeItem = null;
+  }
+
+  list.forEach((item) => {
+    item.addEventListener("click", () => showDetail(item));
+  });
+
+  window.addEventListener("load", () => {
+    gsap.from(".list img", { scale: 1, duration: 0.5 });
+  });
+</script>

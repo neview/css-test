@@ -8,10 +8,10 @@ const MyPIP = {
   },
 };
 
-let tipsHtml = document.getElementById("screenshot");
+let screenshot = document.getElementById("screenshot");
 
 const MyControl = {
-  el: tipsHtml, // 控制项的 DOM 元素
+  el: screenshot, // 控制项的 DOM 元素
   id: "123123", // 一般只有在自定义插件中才会设置
   // tip: string, // 提示字符串
   // tooltip: Tooltip, // 提示组件对象
@@ -31,31 +31,62 @@ const MyControl = {
 
 const player = new NPlayer.Player({
   src: "./280443.mp4",
-  poster:
-    "https://gips0.baidu.com/it/u=3560029307,576412274&fm=3028&app=3028&f=JPEG&fmt=auto?w=960&h=1280",
+  // poster:
+  //   "https://gips0.baidu.com/it/u=3560029307,576412274&fm=3028&app=3028&f=JPEG&fmt=auto?w=960&h=1280",
   posterEnable: true,
   thumbnail: {
     startSecond: 1,
-    images: ["M2.jpg"],
+    gapSecond: 1,
+    col: 5,
+    row: 5,
+    images: ["M1.jpg", "M2.jpg"],
   },
   seekStep: 2,
   volumeStep: 5,
   isTouch: true,
-  contextMenus: ["loop", "pip", MyPIP],
+  // contextMenus: ["loop", "pip", MyPIP],
   contextMenuToggle: true,
+  bpControls: {
+    650: [
+      [
+        "play",
+        "time",
+        "volume",
+        "spacer",
+        "web-fullscreen",
+        "fullscreen",
+        "settings",
+        MyControl,
+      ],
+      ["progress"],
+      [],
+    ],
+  },
   controls: [
     [
       "play",
-      "volume",
       "time",
+      "volume",
       "spacer",
-      "airplay",
-      "settings",
       "web-fullscreen",
       "fullscreen",
+      "settings",
       MyControl,
     ],
     ["progress"],
+    [],
+    // ["progress"],
+    // [
+    //   "play",
+    //   "volume",
+    //   "time",
+    //   "spacer",
+    //   "airplay",
+    //   "settings",
+    //   "web-fullscreen",
+    //   "fullscreen",
+    //   MyControl,
+    // ],
   ],
   settings: [
     {

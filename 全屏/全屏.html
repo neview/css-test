@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #full_screen img {
+        width: 200px;
+        height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="full_screen">
+      <img src="../icon_coupon.png" alt="" />
+    </div>
+  </body>
+</html>
+<script>
+  let fullScreen = document.getElementById("full_screen");
+  fullScreen.addEventListener("click", () => {
+    fullScreen.requestFullscreen();
+  });
+</script>
